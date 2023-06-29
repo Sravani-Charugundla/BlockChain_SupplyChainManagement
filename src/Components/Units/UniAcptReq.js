@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+// this page shows all requests that were made by this particular unit and they were accepted
 const UniAcptReq = () => {
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
@@ -43,7 +43,7 @@ const UniAcptReq = () => {
     const req = await window.contract.methods.showacceptedbyunits().call();
 
     const rows = req
-      .filter(item => item[0] !== "UNIT 02")
+      .filter(item => item[0] == "UNIT 01")
       .map(item => (
         <tr key={item[1]}>
           <td>{item[0]}</td>

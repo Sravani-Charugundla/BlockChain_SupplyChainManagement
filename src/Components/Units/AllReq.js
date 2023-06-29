@@ -47,7 +47,7 @@ const AllReq = () => {
 
       let ch = "";
       for (let l = req.length - 1; l >= 0; l--) {
-        // if(req[l][3]!="UNIT 02")
+        if(req[l][3]=="UNIT 01")
         {
           ch += `<tr>
             <td>${req[l][3]}</td>

@@ -42,7 +42,7 @@ const OpReq = () => {
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.d_tu().call();
     console.log(req);
-    const filteredRequests = req.filter(item => item[0] !== 'UNIT 02');
+    const filteredRequests = req.filter(item => item[0] !== 'UNIT 01');
     setRequests(filteredRequests);
   };
 

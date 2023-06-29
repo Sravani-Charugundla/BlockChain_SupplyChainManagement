@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Aschome = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="container-md">
@@ -14,9 +16,8 @@ const Aschome = () => {
             </div>
             <div className="card-body">
               <h5 className="card-title">Division-1 Requests</h5>
-              <a href="ascdiv1.html">
                 <button type="button" className="btn btn-info">Check Requests</button>
-              </a>
+              
             </div>
           </div>
           <div className="card">

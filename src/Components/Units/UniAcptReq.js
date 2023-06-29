@@ -60,12 +60,12 @@ const UniAcptReq = () => {
 
   return (
     <div>
-      <div class="container-md">
+      <div className="container-md">
         <p id="accountArea">Account is: {account}</p>
         <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
-        <form class="form-floating">
-          <table class="table table-bordered table-hover">
-            <thead class="table-dark">
+        <form className="form-floating">
+          <table className="table table-bordered table-hover">
+            <thead className="table-dark">
               <tr>
                 <th scope="col">UNIT-ID</th>
                 <th scope="col">REQUEST-ID</th>

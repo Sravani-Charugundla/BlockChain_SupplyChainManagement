@@ -22,7 +22,7 @@ const NavUnits = () => {
                                 <Link to = "/Components/Units/OpReq" className="nav-link navbar-link">Open Requests</Link>
                             </li>
                             <li className="nav-item active">
-                                <a className="nav-link" href="index.html"><h4>Logout</h4><span className="sr-only"></span></a>
+                                <Link to = "/UniHome" className = "nav-link navbar-link">Logout</Link>
                             </li>
 
                         </ul>

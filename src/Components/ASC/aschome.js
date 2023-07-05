@@ -31,7 +31,7 @@ const Aschome = () => {
                 type="text"
                 className="form-control"
                 id="divisionID"
-                placeholder="Division ID"
+                placeholder="DIVISIONID"
                 value={divisionId}
                 onChange={handleDivisionChange}
               />

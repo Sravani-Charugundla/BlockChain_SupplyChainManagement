@@ -51,9 +51,9 @@ const UniAcptReq = () => {
       .map(item => (
         <tr key={item[1]}>
           <td>{item[0]}</td>
-          <td>Request-{item[1]}</td>
-          <td>{item[2]}</td>
+          <td>Request-{item[2]}</td>
           <td>{item[3]}</td>
+          <td>{item[1]}</td>
           <td>{item[5]}</td>
           <td>{item[6]}</td>
         </tr>

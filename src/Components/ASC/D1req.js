@@ -90,9 +90,9 @@ const D1req = () => {
           {requests.map((req, index) => (
             <tr key={index}>
               <td>{req[0]}</td>
-              <td>Request-{req[1]}</td>
-              <td>{req[2]}</td>
+              <td>Request-{req[2]}</td>
               <td>{req[3]}</td>
+              <td>{req[1]}</td>
               <td>
                 <button
                   type="button"

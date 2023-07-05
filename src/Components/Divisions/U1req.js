@@ -10,6 +10,7 @@ const U1req = () => {
   const location = useLocation();
   var loc = location.state.id;
   console.log(loc);
+  localStorage.setItem('Unit_name',loc);
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [requests, setRequests] = useState([]);
@@ -54,9 +55,9 @@ const U1req = () => {
       .map((item, index) => ({
         id: index,
         unitId: item[3],
-        requestId: item[2],
-        item: item[0],
-        quantity: item[1],
+        requestId: item[0],
+        item: item[1],
+        quantity: item[2],
         queueDisabled: false,
         unavailDisabled: false,
       }));

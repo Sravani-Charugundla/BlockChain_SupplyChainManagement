@@ -60,7 +60,7 @@ const AllReq = () => {
             <td>Request-${req[l][0]}</td>
             <td>${req[l][1]}</td>
             <td>${req[l][2]}</td>
-            <td><input type="text" readOnly value=${req[l][4]}></td>
+            <td><input type="text" readOnly value=${req[l][5]}></td>
           </tr>`;
         }
       }

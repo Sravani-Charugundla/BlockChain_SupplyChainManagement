@@ -77,6 +77,7 @@ const Unit01 = () => {
   var newData = [];
   const handleSeeClick = () => {
     if (n === 0) {
+      
       let ordid4 = localStorage.getItem('counter4') || 0;
       const sord = ordid4.toString();
        

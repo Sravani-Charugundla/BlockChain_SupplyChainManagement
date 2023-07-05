@@ -7,6 +7,7 @@ import {useLocation} from 'react-router-dom';
 
 
 const U1req = () => {
+  const location = useLocation();
   var loc = location.state.id;
   console.log(loc);
   const [account, setAccount] = useState('');
@@ -49,7 +50,7 @@ const U1req = () => {
     const req = await window.contract.methods.display1DArray().call();
 
     const filteredRequests = req
-      .filter((item) => item[3] === 'UNIT 01')
+      .filter((item) => item[3] ===loc)
       .map((item, index) => ({
         id: index,
         unitId: item[3],

@@ -8,6 +8,10 @@ const UniAcptReq = () => {
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [requestRows, setRequestRows] = useState([]);
+  var unit_name = localStorage.getItem('store_uni');
+  console.log(unit_name);
+  var div_name = localStorage.getItem('store_div');
+  console.log(div_name);
 
   useEffect(() => {
     connectMetamask();
@@ -43,7 +47,7 @@ const UniAcptReq = () => {
     const req = await window.contract.methods.showacceptedbyunits().call();
 
     const rows = req
-      .filter(item => item[0] == "UNIT 01")
+      .filter(item => item[0] ==unit_name)
       .map(item => (
         <tr key={item[1]}>
           <td>{item[0]}</td>

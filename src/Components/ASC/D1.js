@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
+
 
 const D1 = () => {
+  const navigate = useNavigate();
   return (
     <div>
         <div className="container">
@@ -19,7 +23,7 @@ const D1 = () => {
                 <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <button
                   className='btn btn-primary'
-                  onClick={() => navigate("/Components/Divisions/DU1")}
+                  onClick={() => navigate("/Components/ASC/D1req")}
                 >
                   Go to Division-1 page
                 </button>

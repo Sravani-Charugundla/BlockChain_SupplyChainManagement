@@ -8,6 +8,10 @@ const OpReq = () => {
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [requests, setRequests] = useState([]);
+  var unit_name = localStorage.getItem('store_uni');
+  console.log(unit_name);
+  var div_name = localStorage.getItem('store_div');
+  console.log(div_name);
 
   useEffect(() => {
     connectMetamask();
@@ -42,7 +46,7 @@ const OpReq = () => {
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.d_tu().call();
     console.log(req);
-    const filteredRequests = req.filter(item => item[0] !== 'UNIT 01');
+    const filteredRequests = req.filter(item => item[0] !==unit_name);
     setRequests(filteredRequests);
   };
 

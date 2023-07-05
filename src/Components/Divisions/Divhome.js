@@ -1,8 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import DU1 from './DU1';
+import { useLocation } from 'react-router-dom';
 const DivHome = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  
 
   return (
     <div>

@@ -1,51 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Aschome.css'; // Import your custom CSS file for styling
+
 
 const Aschome = () => {
+  
   const navigate = useNavigate();
+  const [divisionId, setDivisionId] = useState('');
+
+  const handleDivisionChange = (event) => {
+    setDivisionId(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here, you can send `divisionId` as a prop to another unit or perform any other action you need.
+    console.log('Division ID:', divisionId);
+    navigate("/Components/ASC/D1req",{state:{id:divisionId}}); // Navigates to the D1 component with the divisionId as a parameter
+  };
+
   return (
-    <div>
-      <div className="container-md">
-      <div className="row">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfmdw4X0yThXcSwqgTPxyfMc1orQP1l2-n9Q&usqp=CAU" width="40%" height="280px" alt="Image" />
-        </div>
-        <div className="card-group">
-          <div className="card">
-            <div className="card-header">
-              Divison-1
+    <div className="container-md d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <div className="card">
+        <form onSubmit={handleSubmit}>
+          <div className="card-body">
+            <legend className="card-title">Check Requests from Divisions</legend>
+            <div className="form-group">
+              <label htmlFor="divisionID">Enter Division ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="divisionID"
+                placeholder="Division ID"
+                value={divisionId}
+                onChange={handleDivisionChange}
+              />
             </div>
-            <div className="card-body">
-              <h5 className="card-title">Division-1 Requests</h5>
-                <button type="button" className="btn btn-info">Check Requests</button>
-              
-            </div>
+            <button type="submit" className="btn btn-primary">Check Requests</button>
           </div>
-          <div className="card">
-            <div className="card-header">
-              Division-2
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Division-2 Requests</h5>
-              <a href="d1u2.html">
-                <button type="button" className="btn btn-info">Check Requests</button>
-              </a>
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-header">
-              Division-3
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Division-3 Requests</h5>
-              <a href="d1u3.html">
-                <button type="button" className="btn btn-info">Check Requests</button>
-              </a>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
-  );
+  ); 
 };
 
 export default Aschome;

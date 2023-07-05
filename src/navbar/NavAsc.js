@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const NavAsc = () => {
+    const location = useLocation();
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -11,7 +14,7 @@ const NavAsc = () => {
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item active">
-                                <Link to = "/Components/Divisons/Divhome" className="nav-link navbar-link">Dashboard</Link>
+                                <Link to = "/aschome " className="nav-link navbar-link">Dashboard</Link>
                             </li>
                         </ul>
                     </div>

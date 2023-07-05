@@ -5,6 +5,12 @@ import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AllReq = () => {
+  var unit_name = localStorage.getItem('store_uni');
+  console.log(unit_name);
+  var div_name = localStorage.getItem('store_div');
+  console.log(div_name);
+  console.log(div_name);
+  
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
 
@@ -47,13 +53,13 @@ const AllReq = () => {
 
       let ch = "";
       for (let l = req.length - 1; l >= 0; l--) {
-        if(req[l][3]=="UNIT 01")
+        if(req[l][3]==unit_name)
         {
           ch += `<tr>
             <td>${req[l][3]}</td>
-            <td>Request-${req[l][2]}</td>
-            <td>${req[l][0]}</td>
+            <td>Request-${req[l][0]}</td>
             <td>${req[l][1]}</td>
+            <td>${req[l][2]}</td>
             <td><input type="text" readOnly value=${req[l][4]}></td>
           </tr>`;
         }

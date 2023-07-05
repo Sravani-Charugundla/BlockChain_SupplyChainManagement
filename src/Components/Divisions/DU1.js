@@ -1,56 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const DU1 = () => {
+
+const Aschome = () => {
+  
   const navigate = useNavigate();
+  const [UnitId, setUnitId] = useState('');
+
+  const handleDivisionChange = (event) => {
+    setUnitId(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here, you can send `divisionId` as a prop to another unit or perform any other action you need.
+    console.log('Unit-ID:', UnitId );
+    navigate("/Components/Divisions/U1req",{state:{id:UnitId}}); // Navigates to the D1 component with the divisionId as a parameter
+  };
+
   return (
-    <div>
-      <div className="container-md">
-    <div className="card-group">
-        <div className="card">
-            <div className="card-header">
-                UNIT-1
-              </div>
-          
+    <div className="container-md d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <div className="card">
+        <form onSubmit={handleSubmit}>
           <div className="card-body">
-            <h5 className="card-title">Unit-1 Requests</h5>
-           
-            <button type="button" className="btn btn-info"
-            onClick={()=>navigate("/Components/Divisions/U1req")}
-            >Check Requests</button>
-           
+            <legend className="card-title">Check Requests from Units</legend>
+            <div className="form-group">
+              <label htmlFor="divisionID">Enter Unit ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="divisionID"
+                placeholder="Unit ID"
+                value={UnitId}
+                onChange={handleDivisionChange}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">Check Requests</button>
           </div>
-        </div>
-        <div className="card">
-            <div className="card-header">
-                UNIT-2
-              </div>
-        
-          <div className="card-body">
-            <h5 className="card-title">Unit-2 Requests</h5>
-            
-            <a  href="d1u2.html">
-                <button type="button" className="btn btn-info">Check Requests</button>
-                </a>
-          </div>
-        </div>
-        <div className="card">
-            <div className="card-header">
-                UNIT-3
-              </div>
-         
-          <div className="card-body">
-            <h5 className="card-title">Unit-3 Requests</h5>
-            <a  href="d1u3.html">
-                <button type="button" className="btn btn-info">Check Requests</button>
-                </a>
-          </div>
-        </div>
+        </form>
       </div>
-</div>
-  <br/>
     </div>
-  );
+  ); 
 };
 
-export default DU1;
+export default Aschome;

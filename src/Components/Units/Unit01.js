@@ -3,8 +3,20 @@ import Web3 from 'web3';
 import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './UnitStyle.css'
+import { useLocation } from 'react-router-dom';
+
+
 
 const Unit01 = () => {
+  const location = useLocation();
+  var loc = location.state.id;
+  const parts = loc.split(" ");
+  var div_name = parts[0];
+  var units_name = parts[1];
+  localStorage.setItem('store_uni',units_name);
+  localStorage.setItem('store_div',div_name);
+  
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
@@ -73,7 +85,7 @@ const Unit01 = () => {
         const textValue = document.getElementById(`${j}`).value;
         const numValue = document.getElementById(`${j}1`).value;
         const timestamp = new Date().toLocaleString();
-        const itemData = [sord,textValue, numValue ,'UNIT 01', 'Division-01', 'SentToDivison', timestamp];
+        const itemData = [sord,textValue, numValue ,units_name,div_name, 'SentToDivison', timestamp];
         newData.push(itemData);
       }
 
@@ -106,7 +118,7 @@ const Unit01 = () => {
         setN(n + 1);
       } catch (error) {
         console.error('Transaction error:', error);
-        setTransactionStatus('Transaction error');
+        setTransactionStatus('Transaction error'); 
       }
     } else {
       alert("You can't add items now!");
@@ -115,16 +127,16 @@ const Unit01 = () => {
 
   return (
     <div>
+      
       <p id="accountArea">Account is: {account}</p>
       <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
       
       <p id="hash">Transaction hash: {transactionHash}</p>
       <p id="transactionStatus">Transaction status: {transactionStatus}</p>
-
       <h1 style={{ textAlign: 'center' }}>SUPPLY REQUEST FORM</h1>
       <div style={{ textAlign: 'right' }}>
-        <button id="Add" className="btn btn-primary" onClick={handleAddClick}>Click to Add Items</button>
-        <button id="Remove" className="btn btn-primary" onClick={handleRemoveClick}>Click to Remove Items</button>
+        <button id="Add" className="btn btn-primary small-button" onClick={handleAddClick}>Click to Add Items</button>
+        <button id="Remove" className="btn btn-primary small-button" onClick={handleRemoveClick}>Click to Remove Items</button>
       </div>
 
       <form>

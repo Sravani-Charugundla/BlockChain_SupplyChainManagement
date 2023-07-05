@@ -3,10 +3,12 @@ import Web3 from 'web3';
 import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useLocation} from 'react-router-dom';
 
 
 const U1req = () => {
-  
+  var loc = location.state.id;
+  console.log(loc);
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [requests, setRequests] = useState([]);

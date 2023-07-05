@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 const D1req = () => {
   const location = useLocation();
-  const loc = location.state.id;
+  var loc = location.state.id;
   const [account, setAccount] = useState('Connection Status: NOT CONNECTED to Metamask');
   const [contract, setContract] = useState('Connection Status: NOT CONNECTED to Smart Contract');
   const [requests, setRequests] = useState([]);
@@ -45,7 +45,7 @@ const D1req = () => {
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.showtoasc().call();
-    const filteredRequests = req.filter((item) => item[0] !== 'UNIT 02');
+    const filteredRequests = req.filter((item) => item[4]==loc);
     setRequests(filteredRequests);
   };
 

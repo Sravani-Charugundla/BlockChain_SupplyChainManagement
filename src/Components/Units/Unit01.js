@@ -5,7 +5,7 @@ import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './UnitStyle.css'
 import { useLocation } from 'react-router-dom';
-
+import { saveRequestData } from './api';
 
 
 const Unit01 = () => {
@@ -101,17 +101,29 @@ const Unit01 = () => {
   const changeWord = async () => {
     if (n === 0) {
       try {
+
+        console.log("Hi");
         const receipt = await window.contract.methods.save(newData).send({ from: account });
+        
+        const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
 
         const hash = receipt.transactionHash;
         setTransactionHash(hash);
 
         if (receipt.status) {
-          console.log('Transaction confirmed');
+          const requestData = {
+            transactionHash: transactionReceipt.transactionHash,
+            toAddress: transactionReceipt.to,
+            fromAddress: transactionReceipt.from,
+            timestamp: new Date(transactionReceipt.blockTimestamp * 1000).toLocaleString(),
+            gasUsed: transactionReceipt.gasUsed,
+            status: 'success',
+          };
+          await saveRequestData(requestData);
+          console.log('Transaction successful.');
           console.log('Transaction hash:', hash);
           setTransactionStatus('Transaction successful');
         } else {
-          console.log('Transaction failed');
           console.log('Transaction hash:', hash);
           setTransactionStatus('Transaction failed');
         }

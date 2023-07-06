@@ -49,7 +49,6 @@ function Signup() {
                 <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
                 <input type="text" onChange={(e) => { setRole(e.target.value) }} placeholder="Role"/>
                 <input type="submit" onClick={submit} />
-
             </form>
 
             <br />

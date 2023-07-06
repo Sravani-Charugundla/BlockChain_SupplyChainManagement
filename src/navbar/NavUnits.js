@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './navbar.css';
 
 const NavUnits = () => {
@@ -22,6 +22,11 @@ const NavUnits = () => {
     var pascalCase_Uname = convertToPascalCase(unit_name);
     var pascalCase_Dname = convertToPascalCase(div_name);
     console.log(pascalCase_Uname);
+    const handlelogout = ()=>{
+        window.history.replaceState(null,'','/');
+        Navigate('/');
+
+    }
     
 
     return (
@@ -42,7 +47,7 @@ const NavUnits = () => {
                         <Link to="/Components/Units/OpReq" className="nav-link navbar-link">Open Requests</Link>
                     </li>
                     <li className="nav-item active">
-                        <Link to="/UniHome" className="nav-link navbar-link">Logout</Link>
+                        <Link to="/" className="nav-link navbar-link" onClick={handlelogout}>Logout</Link>
                     </li>
 
                 </ul>

@@ -63,17 +63,13 @@ function Login() {
     }
     return (
         <div className="login">
-
             <h1>Login</h1>
-
             <form action="POST">
                 <input type="text" onChange={(e) => { setEmail(e.target.value) }} placeholder="UserID"  />
                 <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password"  />
                 <input type="submit" onClick={submit} />
                 <p>{Error}</p>
-
             </form>
-
             <br />
             <p>or</p>
             <Link to="/Authenticate/Signup">Signup</Link>

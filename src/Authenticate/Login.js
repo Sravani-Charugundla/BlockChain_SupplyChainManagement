@@ -26,27 +26,27 @@ function Login() {
                     // const role = res.data.role;
             
                     console.log(res.data);
-                    if(res.data.role=="ASC")
+                    if(res.data.role==="ASC")
                     {
                         history("/components/ASC/aschome",{state:{id:email}})
                         // history("/home",{state:{id:email}})
                     }
-                    if(res.data.role=="DIVISIONS")
+                    if(res.data.role==="DIVISIONS")
                     {
                         history("/components/Divisions/DU1",{state:{id:email}})
                     }
-                    if(res.data.role=="UNITS")
+                    if(res.data.role==="UNITS")
                     {
                         
                         history("/components/Units/Unit01",{state:{id:email}})                        
                     }
                    
                 }
-                else if(res.data=="wrong credentials"){
+                else if(res.data==="wrong credentials"){
                     
                     setError("Wrong credentials")
                 }
-                else if(res.data=="notexist"){
+                else if(res.data==="notexist"){
                     alert("User have not sign up")
                 }
             })

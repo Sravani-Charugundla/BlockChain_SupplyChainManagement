@@ -3,15 +3,17 @@ import Web3 from 'web3';
 import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { saveRequestData } from './api';
 
 const OpReq = () => {
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [requests, setRequests] = useState([]);
+  const [transactionStatus, setTransactionStatus] = useState('');
   var unit_name = localStorage.getItem('store_uni');
-  console.log(unit_name);
+
   var div_name = localStorage.getItem('store_div');
-  console.log(div_name);
+
 
   useEffect(() => {
     connectMetamask();
@@ -46,7 +48,7 @@ const OpReq = () => {
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.d_tu().call();
     console.log(req);
-    const filteredRequests = req.filter(item => item[0] !==unit_name);
+    const filteredRequests = req.filter(item => item[0] !== unit_name);
     setRequests(filteredRequests);
   };
 
@@ -77,7 +79,35 @@ const OpReq = () => {
   };
 
   const addreq = async () => {
-    await window.contract.methods.acptbyUnits(acpt).send({ from: account });
+    try {
+      const receipt = await window.contract.methods.acptbyUnits(acpt).send({ from: account });
+      const currentTimestamp = new Date().toLocaleString();
+      const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.TransactionHash);
+      if (receipt.status) {
+        const requestData = {
+          transactionHash: transactionReceipt.transactionHash,
+          toAddress: transactionReceipt.to,
+          fromAddress: transactionReceipt.from,
+          timestamp: currentTimestamp,
+          gasUsed: transactionReceipt.gasUsed,
+          status: 'success',
+        };
+        await saveRequestData(requestData);
+        console.log('Transaction successful.');
+        setTransactionStatus('Transaction successful');
+
+      }
+      else {
+        setTransactionStatus('Transaction failed');
+
+      }
+    }
+    catch (error) {
+      console.error('Transaction error:', error);
+      setTransactionStatus('Transaction error');
+    }
+
+
   };
 
   return (

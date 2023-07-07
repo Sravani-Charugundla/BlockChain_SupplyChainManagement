@@ -104,6 +104,7 @@ const Unit01 = () => {
 
         console.log("Hi");
         const receipt = await window.contract.methods.save(newData).send({ from: account });
+        const currentTimestamp = new Date().toLocaleString();
         
         const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
 
@@ -115,7 +116,7 @@ const Unit01 = () => {
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
             fromAddress: transactionReceipt.from,
-            timestamp: new Date(transactionReceipt.blockTimestamp * 1000).toLocaleString(),
+            timestamp: currentTimestamp,
             gasUsed: transactionReceipt.gasUsed,
             status: 'success',
           };

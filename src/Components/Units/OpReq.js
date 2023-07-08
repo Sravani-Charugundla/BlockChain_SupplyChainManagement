@@ -75,7 +75,7 @@ const OpReq = () => {
     console.log(nacpt);
     acpt.push(nacpt);
 
-    setRequests(updatedRequests);
+    setRequests(updatedRequests.reverse());
   };
 
   const addreq = async () => {

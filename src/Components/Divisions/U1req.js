@@ -49,9 +49,9 @@ const U1req = () => {
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
-
+  
     const filteredRequests = req
-      .filter((item) => item[3] ===loc)
+      .filter((item) => item[3] === loc)
       .map((item, index) => ({
         id: index,
         unitId: item[3],
@@ -61,9 +61,10 @@ const U1req = () => {
         queueDisabled: false,
         unavailDisabled: false,
       }));
-
-    setRequests(filteredRequests);
+  
+    setRequests(filteredRequests.reverse());
   };
+  
 
   const handleUnavailable = async (id) => {
     const updatedRequests = [...requests];

@@ -24,6 +24,7 @@ const Unit01 = () => {
   const [data, setData] = useState([]);
   const [n, setN] = useState(0);
   const [i, setI] = useState(0);
+  
 
   useEffect(() => {
     connectMetamask();
@@ -75,11 +76,11 @@ const Unit01 = () => {
     setData(newData);
   };
   var newData = [];
+  var sord;
   const handleSeeClick = () => {
     if (n === 0) {
-      
       let ordid4 = localStorage.getItem('counter4') || 0;
-      const sord = ordid4.toString();
+      sord = ordid4.toString();
        
 
       for (let j = 0; j < i; j++) {
@@ -101,8 +102,6 @@ const Unit01 = () => {
   const changeWord = async () => {
     if (n === 0) {
       try {
-
-        console.log("Hi");
         const receipt = await window.contract.methods.save(newData).send({ from: account });
         const currentTimestamp = new Date().toLocaleString();
         
@@ -113,6 +112,8 @@ const Unit01 = () => {
 
         if (receipt.status) {
           const requestData = {
+            RequestID:sord,
+            UNITID:loc,
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
             fromAddress: transactionReceipt.from,

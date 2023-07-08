@@ -6,9 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Modal, Button, Card } from 'react-bootstrap';
 import './AllReq.css';
+import { useNavigate } from 'react-router-dom';
 
 const AllReq = () => {
   var unit_name = localStorage.getItem('store_uni');
+  const history = useNavigate();
 
   // var div_name = localStorage.getItem('store_div');
 
@@ -77,6 +79,12 @@ const AllReq = () => {
     }
   };
 
+  const move = async (reqid) =>
+  {
+    history("/components/Units/CheckStatus",{state:{id:reqid}})
+    
+  }
+
   return (
     <div className="container-md">
       <p id="accountArea">Account is: {account}</p>
@@ -103,7 +111,7 @@ const AllReq = () => {
                   <td>{item[1]}</td>
                   <td>{item[2]}</td>
                   <td>
-                    <input type="text" readOnly value={item[5]} />
+                    <button type="button" className="btn btn-primary" onClick={()=>move(item[0])} >CheckStatus</button>
                   </td>
                   <td>
                     <button type="button" className="btn btn-primary" onClick={() => handleClick(item[0])}>

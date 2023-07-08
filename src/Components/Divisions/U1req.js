@@ -4,6 +4,7 @@ import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useLocation} from 'react-router-dom';
+import { DivsaveRequestData } from '../Divisions/DivApi';
 
 
 const U1req = () => {
@@ -16,6 +17,7 @@ const U1req = () => {
   const [requests, setRequests] = useState([]);
   const [unav, setUnav] = useState([]);
   const [areq, setAreq] = useState([]);
+  const [buttonStates, setButtonStates] = useState([]);
 
   useEffect(() => {
     connectMetamask();
@@ -65,7 +67,7 @@ const U1req = () => {
     setRequests(filteredRequests.reverse());
   };
   
-
+  var sord;
   const handleUnavailable = async (id) => {
     const updatedRequests = [...requests];
     updatedRequests[id].unavailDisabled = true;
@@ -74,7 +76,7 @@ const U1req = () => {
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
-
+    sord = req[id][2];
     const timestamp = new Date().toLocaleString();
     const nunav = [
       req[id][3],
@@ -88,16 +90,17 @@ const U1req = () => {
     setUnav((prevUnav) => [...prevUnav, nunav]);
     console.log(nunav);
   };
-
+  var sord;
   const handleQueueRequest = async (id) => {
     const updatedRequests = [...requests];
     updatedRequests[id].queueDisabled = true;
     setRequests(updatedRequests);
+    
 
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
-
+    sord = req[id][2];
     const timestamp = new Date().toLocaleString();
     const nreq = [
       req[id][3],
@@ -113,11 +116,62 @@ const U1req = () => {
   };
 
   const handleForwardRequest = async () => {
-    await window.contract.methods.dtu(areq).send({ from: account });
-  };
+    try{
+      const receipt = await window.contract.methods.dtu(areq).send({ from: account });
+      const currentTimestamp = new Date().toLocaleString();
+      const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
+      if(receipt.status)
+      {
+        const requestData = {
+          RequestID: 1,
+            UNITID: loc,
+            transactionHash: transactionReceipt.transactionHash,
+            toAddress: transactionReceipt.to,
+            fromAddress: transactionReceipt.from,
+            timestamp: currentTimestamp,
+            gasUsed: transactionReceipt.gasUsed,
+            status: 'success', 
+        };
+        await DivsaveRequestData(requestData);
 
+      }
+
+
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+  };
   const handleForwardToASC = async () => {
-    await window.contract.methods.toAsc(unav).send({ from: account });
+    try{
+      const receipt = await window.contract.methods.toAsc(unav).send({ from: account });
+      const currentTimestamp = new Date().toLocaleString();
+      const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
+      if(receipt.status)
+      {
+        const requestData = {
+          RequestID: sord,
+            UNITID: loc,
+            transactionHash: transactionReceipt.transactionHash,
+            toAddress: transactionReceipt.to,
+            fromAddress: transactionReceipt.from,
+            timestamp: currentTimestamp,
+            gasUsed: transactionReceipt.gasUsed,
+            status: 'success',
+        };
+        await DivsaveRequestData(requestData);
+        console.log("transaction Succesful");
+
+      }
+
+
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+    // await window.contract.methods.toAsc(unav).send({ from: account });
   };
 
   return (

@@ -18,6 +18,7 @@ import D1 from './Components/ASC/D1';
 import Login from './Authenticate/Login';
 import NavAuth  from './navbar/NavAuth';
 import Signup from './Authenticate/Signup';
+import CheckStatus from './Components/Units/CheckStatus';
 
 
 const App = () => {
@@ -56,7 +57,7 @@ const App = () => {
         <Route path="/Components/Divisions/U1req" element = {<U1req/>}/>
         <Route path = "/Components/ASC/D1req" element = {<D1req/>}/>
         <Route path = "/Components/ASC/D1" element = {<D1/>}/>
-
+        <Route path = "Components/Units/CheckStatus" element = {<CheckStatus/>}/>
       </Routes>
     </Router>
   );

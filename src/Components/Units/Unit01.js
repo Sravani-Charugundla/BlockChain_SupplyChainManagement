@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './UnitStyle.css'
 import { useLocation } from 'react-router-dom';
 import { saveRequestData } from './api';
+import axios from 'axios';
+
+
 
 
 const Unit01 = () => {
@@ -14,9 +17,9 @@ const Unit01 = () => {
   const parts = loc.split(" ");
   var div_name = parts[0];
   var units_name = parts[1];
-  localStorage.setItem('store_uni',units_name);
-  localStorage.setItem('store_div',div_name);
-  
+  localStorage.setItem('store_uni', units_name);
+  localStorage.setItem('store_div', div_name);
+
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
@@ -24,7 +27,7 @@ const Unit01 = () => {
   const [data, setData] = useState([]);
   const [n, setN] = useState(0);
   const [i, setI] = useState(0);
-  
+
 
   useEffect(() => {
     connectMetamask();
@@ -55,7 +58,7 @@ const Unit01 = () => {
     }
   };
 
-  
+
 
   const handleAddClick = () => {
     const newItem = (
@@ -81,13 +84,13 @@ const Unit01 = () => {
     if (n === 0) {
       let ordid4 = localStorage.getItem('counter4') || 0;
       sord = ordid4.toString();
-       
+
 
       for (let j = 0; j < i; j++) {
         const textValue = document.getElementById(`${j}`).value;
         const numValue = document.getElementById(`${j}1`).value;
         const timestamp = new Date().toLocaleString();
-        const itemData = [sord,textValue, numValue ,units_name,div_name, 'SentToDivison', timestamp];
+        const itemData = [sord, textValue, numValue, units_name, div_name, 'SentToDivison', timestamp];
         newData.push(itemData);
       }
 
@@ -98,13 +101,25 @@ const Unit01 = () => {
       alert('Place Request');
     }
   };
+  const updateOrderStatus = async (orderId, status, timestamp) => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/updateOrderStatus', {
+        orderId: orderId,
+        status: status,
+        timestamp: timestamp
+      });
+      console.log(response.data); // Log the response if needed
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
 
   const changeWord = async () => {
     if (n === 0) {
       try {
         const receipt = await window.contract.methods.save(newData).send({ from: account });
         const currentTimestamp = new Date().toLocaleString();
-        
+
         const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
 
         const hash = receipt.transactionHash;
@@ -112,8 +127,8 @@ const Unit01 = () => {
 
         if (receipt.status) {
           const requestData = {
-            RequestID:sord,
-            UNITID:loc,
+            RequestID: sord,
+            UNITID: loc,
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
             fromAddress: transactionReceipt.from,
@@ -125,6 +140,7 @@ const Unit01 = () => {
           console.log('Transaction successful.');
           console.log('Transaction hash:', hash);
           setTransactionStatus('Transaction successful');
+          await updateOrderStatus(sord, 'SentToDivisions', currentTimestamp);
         } else {
           console.log('Transaction hash:', hash);
           setTransactionStatus('Transaction failed');
@@ -133,7 +149,7 @@ const Unit01 = () => {
         setN(n + 1);
       } catch (error) {
         console.error('Transaction error:', error);
-        setTransactionStatus('Transaction error'); 
+        setTransactionStatus('Transaction error');
       }
     } else {
       alert("You can't add items now!");
@@ -142,10 +158,10 @@ const Unit01 = () => {
 
   return (
     <div>
-      
+
       <p id="accountArea">Account is: {account}</p>
       <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
-      
+
       <p id="hash">Transaction hash: {transactionHash}</p>
       <p id="transactionStatus">Transaction status: {transactionStatus}</p>
       <h1 style={{ textAlign: 'center' }}>SUPPLY REQUEST FORM</h1>
@@ -180,8 +196,8 @@ const Unit01 = () => {
       <div style={{ textAlign: 'center' }}>
         <button id="see" className="btn btn-warning" onClick={handleSeeClick}>ADD TO CART</button>
         <br />
-        <br/>
-        <button type="button" className="btn btn-success"onClick={changeWord}>Place Request</button>
+        <br />
+        <button type="button" className="btn btn-success" onClick={changeWord}>Place Request</button>
       </div>
     </div>
   );

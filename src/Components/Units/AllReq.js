@@ -4,17 +4,20 @@ import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Modal, Button } from 'react-bootstrap'; 
 
 const AllReq = () => {
   var unit_name = localStorage.getItem('store_uni');
 
-  var div_name = localStorage.getItem('store_div');
-  
+  // var div_name = localStorage.getItem('store_div');
+
 
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [reqData, setReqData] = useState([]); // State to hold the filtered request data
   const [transactionDetails, setTransactionDetails] = useState(null);
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
+
 
   useEffect(() => {
     connectMetamask();
@@ -49,22 +52,25 @@ const AllReq = () => {
       window.web3 = new Web3(window.ethereum);
       window.contract = new window.web3.eth.Contract(ABI, Address);
       const req = await window.contract.methods.display1DArray().call();
-      console.log(req);
       const filteredReq = req.filter((item) => item[3] === unit_name);
       setReqData(filteredReq.reverse());
     } catch (error) {
       console.error('Error reading data:', error);
     }
   };
+  const handleCloseModal = () => {
+    setShowTransactionModal(false);
+  };
 
-  const handleClick = async(reqid) => {
-    
+  const handleClick = async (reqid) => {
     console.log(reqid);
     try {
       const response = await axios.get(`http://localhost:8000/api/data/${reqid}`);
-      console.log(response);
-      const transactionData = response.data;
+      const transactionData = response.data[0];
+      console.log(transactionData);
       setTransactionDetails(transactionData);
+      setShowTransactionModal(true);
+
     } catch (error) {
       console.error('Error fetching transaction details:', error);
     }
@@ -99,7 +105,7 @@ const AllReq = () => {
                     <input type="text" readOnly value={item[5]} />
                   </td>
                   <td>
-                    <button type="button" className="btn btn-primary" onClick={()=>handleClick(item[0])}>
+                    <button type="button" className="btn btn-primary" onClick={() => handleClick(item[0])}>
                       Transaction
                     </button>
                   </td>
@@ -109,6 +115,23 @@ const AllReq = () => {
           </table>
         </div>
       </form>
+      <Modal show={showTransactionModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Transaction Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Transaction Hash: {transactionDetails?.transactionHash}</p>
+          <p>To Address: {transactionDetails?.toAddress}</p>
+          
+          {/* Add more transaction details as needed */}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 };

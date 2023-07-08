@@ -4,7 +4,8 @@ import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { Modal, Button } from 'react-bootstrap'; 
+import { Modal, Button, Card } from 'react-bootstrap';
+import './AllReq.css';
 
 const AllReq = () => {
   var unit_name = localStorage.getItem('store_uni');
@@ -117,13 +118,29 @@ const AllReq = () => {
       </form>
       <Modal show={showTransactionModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Transaction Details</Modal.Title>
+          <Modal.Title>Transaction Details RequestID:  {transactionDetails?.RequestID}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Transaction Hash: {transactionDetails?.transactionHash}</p>
-          <p>To Address: {transactionDetails?.toAddress}</p>
-          
-          {/* Add more transaction details as needed */}
+          <Card>
+            <Card.Body>
+              {/* <Card.Title>Transaction Details</Card.Title> */}
+              <div className="card-details">
+                <p><strong>Transaction Hash:</strong></p>
+                <p>{transactionDetails?.transactionHash}</p>
+                <p><strong>From Address:</strong></p>
+                <p>{transactionDetails?.toAddress}</p>
+                <p><strong>To Address:</strong></p>
+                <p>{transactionDetails?.fromAddress}</p>
+                <p><strong>TimeStamp:</strong></p>
+                <p>{transactionDetails?.timestamp}</p>
+                <p><strong>GasUsed:</strong></p>
+                <p>{transactionDetails?.gasUsed}</p>
+
+
+                {/* Add more transaction details as needed */}
+              </div>
+            </Card.Body>
+          </Card>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
@@ -131,6 +148,7 @@ const AllReq = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
 
     </div>
   );

@@ -3,26 +3,31 @@ import Web3 from 'web3';
 import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { DivsaveRequestData } from '../Divisions/DivApi';
 
 
 const U1req = () => {
   const location = useLocation();
   var loc = location.state.id;
-  console.log(loc);
-  localStorage.setItem('Unit_name',loc);
+
+  localStorage.setItem('Unit_name', loc);
   const [account, setAccount] = useState('');
   const [contractConnected, setContractConnected] = useState(false);
   const [requests, setRequests] = useState([]);
   const [unav, setUnav] = useState([]);
   const [areq, setAreq] = useState([]);
-  const [buttonStates, setButtonStates] = useState([]);
+  const [disabledButtons, setDisabledButtons] = useState(() => {
+    const disabledButtonsFromStorage = JSON.parse(localStorage.getItem('disabledButtons')) || [];
+    return disabledButtonsFromStorage;
+  });
+
 
   useEffect(() => {
     connectMetamask();
     connectContract();
     readData();
+    
   }, []);
 
   const connectMetamask = async () => {
@@ -51,124 +56,130 @@ const U1req = () => {
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
-  
-    const filteredRequests = req
-      .filter((item) => item[3] === loc)
-      .map((item, index) => ({
-        id: index,
-        unitId: item[3],
-        requestId: item[0],
-        item: item[1],
-        quantity: item[2],
-        queueDisabled: false,
-        unavailDisabled: false,
-      }));
-  
-    setRequests(filteredRequests.reverse());
+    const filteredRequests = req.filter((item) => item[3] === loc);
+    setRequests(filteredRequests);
   };
-  
-  var sord;
-  const handleUnavailable = async (id) => {
-    const updatedRequests = [...requests];
-    updatedRequests[id].unavailDisabled = true;
-    setRequests(updatedRequests);
 
+  var sord;
+  const handleUnavailable = async (id, ord) => {
+    console.log(id, ord);
+    const updatedRequests = [...requests];
+    var buttonId = id + "1";
+    const updatedDisabledButtons = [...disabledButtons, buttonId];
+    setDisabledButtons(updatedDisabledButtons);// Store the updated disabled buttons in local storage
+    localStorage.setItem('disabledButtons', JSON.stringify(updatedDisabledButtons));
+    setRequests(updatedRequests);
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
-    sord = req[id][2];
-    const timestamp = new Date().toLocaleString();
-    const nunav = [
-      req[id][3],
-      req[id][2],
-      req[id][0],
-      req[id][1],
-      req[id][4],
-      'SentToASC',
-      timestamp,
-    ];
-    setUnav((prevUnav) => [...prevUnav, nunav]);
-    console.log(nunav);
+    const filteredReq = req.filter(item => item[0] == id && item[1] == ord);
+    if (filteredReq.length > 0) {
+      const timestamp = new Date().toLocaleString();
+      const nunav = [
+        filteredReq[0][3],
+        filteredReq[0][2],
+        filteredReq[0][0],
+        filteredReq[0][1],
+        filteredReq[0][4],
+        'sentToUnits',
+        timestamp,
+      ]
+      setUnav((prevUnav) => [...prevUnav, nunav]);
+    }
   };
+  useEffect(() => {
+    console.log(unav); // Log the updated value of `areq` after state update
+  }, [unav]);
+
+
   var sord;
-  const handleQueueRequest = async (id) => {
+  const handleQueueRequest = async (id, ord) => {
+    console.log(id, ord);
     const updatedRequests = [...requests];
-    updatedRequests[id].queueDisabled = true;
-    setRequests(updatedRequests);
+    var buttonId = id;
+    const updatedDisabledButtons = [...disabledButtons, buttonId];
+    setDisabledButtons(updatedDisabledButtons);// Store the updated disabled buttons in local storage
+    localStorage.setItem('disabledButtons', JSON.stringify(updatedDisabledButtons));
     
-
+    setRequests(updatedRequests);
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
-    sord = req[id][2];
-    const timestamp = new Date().toLocaleString();
-    const nreq = [
-      req[id][3],
-      req[id][2],
-      req[id][0],
-      req[id][1],
-      req[id][4],
-      'sentToUnits',
-      timestamp,
-    ];
-    setAreq((prevAreq) => [...prevAreq, nreq]);
-    console.log(areq);
+    const filteredReq = req.filter(item => item[0] === id && item[1] === ord);
+    if (filteredReq.length > 0) {
+      const timestamp = new Date().toLocaleString();
+      const nreq = [
+        filteredReq[0][3],
+        filteredReq[0][2],
+        filteredReq[0][0],
+        filteredReq[0][1],
+        filteredReq[0][4],
+        'sentToUnits',
+        timestamp,
+      ];
+      setAreq(prevAreq => [...prevAreq, nreq]);
+    }
   };
+
+  useEffect(() => {
+    
+    console.log(areq); // Log the updated value of `areq` after state update
+  }, [areq]);
 
   const handleForwardRequest = async () => {
-    try{
+    try {
       const receipt = await window.contract.methods.dtu(areq).send({ from: account });
       const currentTimestamp = new Date().toLocaleString();
       const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
-      if(receipt.status)
-      {
-        const requestData = {
-          RequestID: 1,
+      if (receipt.status) {
+        for (var reqData of areq) {
+          const requestData = {
+            RequestID: reqData[2],
             UNITID: loc,
-            transactionHash: transactionReceipt.transactionHash,
-            toAddress: transactionReceipt.to,
-            fromAddress: transactionReceipt.from,
-            timestamp: currentTimestamp,
-            gasUsed: transactionReceipt.gasUsed,
-            status: 'success', 
-        };
-        await DivsaveRequestData(requestData);
-
-      }
-
-
-    }
-    catch(error)
-    {
-      console.log(error);
-    }
-  };
-  const handleForwardToASC = async () => {
-    try{
-      const receipt = await window.contract.methods.toAsc(unav).send({ from: account });
-      const currentTimestamp = new Date().toLocaleString();
-      const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
-      if(receipt.status)
-      {
-        const requestData = {
-          RequestID: sord,
-            UNITID: loc,
+            Item:reqData[3],
+            SentTo:"SentToOtherUnits",
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
             fromAddress: transactionReceipt.from,
             timestamp: currentTimestamp,
             gasUsed: transactionReceipt.gasUsed,
             status: 'success',
-        };
-        await DivsaveRequestData(requestData);
-        console.log("transaction Succesful");
-
+          };
+          await DivsaveRequestData(requestData);
+        }
       }
-
-
     }
-    catch(error)
-    {
+    catch (error) {
+      console.log(error);
+    }
+  };
+  const handleForwardToASC = async () => {
+    try {
+      const receipt = await window.contract.methods.toAsc(unav).send({ from: account });
+      const currentTimestamp = new Date().toLocaleString();
+      const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
+      if(receipt.status)
+      {
+        for(var reqData of unav)
+        {
+          const requestData = {
+            RequestID: reqData[2],
+            UNITID: loc,
+            Item:reqData[3],
+            SentTo:"SentToASC",
+            transactionHash: transactionReceipt.transactionHash,
+            toAddress: transactionReceipt.to,
+            fromAddress: transactionReceipt.from,
+            timestamp: currentTimestamp,
+            gasUsed: transactionReceipt.gasUsed,
+            status: 'success',
+          };
+          await DivsaveRequestData(requestData);
+
+        }
+      }
+    }
+    catch (error) {
       console.log(error);
     }
     // await window.contract.methods.toAsc(unav).send({ from: account });
@@ -192,28 +203,31 @@ const U1req = () => {
               </tr>
             </thead>
             <tbody>
-              {requests.map((req) => (
-                <tr key={req.id}>
-                  <td>{req.unitId}</td>
-                  <td>Request-{req.requestId}</td>
-                  <td>{req.item}</td>
-                  <td>{req.quantity}</td>
+              {requests.map((req, index) => (
+                <tr key={index}>
+                  <td>{req[3]}</td>
+                  <td>Request-{req[0]}</td>
+                  <td>{req[1]}</td>
+                  <td>{req[2]}</td>
                   <td>
                     <button
+                     id = {`${req[0]}`}
+                     disabled={disabledButtons.includes(`${req[0]}`)}
                       type="button"
                       className="btn btn-info"
-                      disabled={req.queueDisabled}
-                      onClick={() => handleQueueRequest(req.id)}
+                      // disabled={req.queueDisabled}
+                      onClick={() => handleQueueRequest(req[0], req[1])}
                     >
                       Queue Request
                     </button>
                   </td>
                   <td>
                     <button
+                      id = {`${req[0]}1`}
                       type="button"
                       className="btn btn-danger"
-                      disabled={req.unavailDisabled}
-                      onClick={() => handleUnavailable(req.id)}
+                      disabled={disabledButtons.includes(`${req[0]}1`)}
+                      onClick={() => handleUnavailable(req[0], req[1])}
                     >
                       Unavailable
                     </button>

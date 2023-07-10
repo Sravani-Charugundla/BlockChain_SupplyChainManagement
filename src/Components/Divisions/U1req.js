@@ -5,6 +5,8 @@ import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation } from 'react-router-dom';
 import { DivsaveRequestData } from '../Divisions/DivApi';
+import axios from 'axios';
+
 
 
 const U1req = () => {
@@ -49,6 +51,19 @@ const U1req = () => {
       setContractConnected(true);
     } catch (error) {
       console.error('Error connecting to contract:', error);
+    }
+  };
+
+  const updateOrderStatus = async (orderId, status, timestamp) => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/updateOrderStatus', {
+        orderId: orderId,
+        status: status,
+        timestamp: timestamp
+      });
+      console.log(response.data); // Log the response if needed
+    } catch (error) {
+      console.error('Error updating order status:', error);
     }
   };
 
@@ -146,6 +161,7 @@ const U1req = () => {
             status: 'success',
           };
           await DivsaveRequestData(requestData);
+          await updateOrderStatus(reqData[2], 'SentToOtherUnits', currentTimestamp);
         }
       }
     }
@@ -175,6 +191,7 @@ const U1req = () => {
             status: 'success',
           };
           await DivsaveRequestData(requestData);
+          await updateOrderStatus(reqData[2], 'SentToASC', currentTimestamp);
 
         }
       }

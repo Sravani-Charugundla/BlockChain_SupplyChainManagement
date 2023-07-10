@@ -14,7 +14,13 @@ const NavDiv = () => {
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item active">
-                                <Link to = "/divhome" className="nav-link navbar-link">Dashboard</Link>
+                                <Link to = "/Components/Divisions/DU1" className="nav-link navbar-link">Dashboard</Link>
+                            </li>
+                            <li className="nav-item active">
+                                <Link to = "/Components/Divisions/SendUnits" className="nav-link navbar-link">BroadcastedRequests</Link>
+                            </li>
+                            <li className="nav-item active">
+                                <Link to = "/Components/Divisions/SendASC" className="nav-link navbar-link">SentToASC</Link>
                             </li>
                         </ul>
                     </div>

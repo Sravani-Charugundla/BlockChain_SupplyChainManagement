@@ -16,11 +16,11 @@ const ABI =[
 		"inputs": [
 			{
 				"internalType": "string[][]",
-				"name": "acceptedOrders",
+				"name": "AtoD",
 				"type": "string[][]"
 			}
 		],
-		"name": "acptorders",
+		"name": "AscToDiv",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -66,7 +66,7 @@ const ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "acpt_displayord",
+		"name": "AscToD",
 		"outputs": [
 			{
 				"components": [
@@ -106,9 +106,58 @@ const ABI =[
 						"type": "string"
 					}
 				],
-				"internalType": "struct Major.Order[]",
+				"internalType": "struct Major.ASCToDivision[]",
 				"name": "",
 				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "ascToDivision",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "reqId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "itemName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "quantity",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "unitID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "divisionID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "status",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "timestamp",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

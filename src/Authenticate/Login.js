@@ -71,8 +71,8 @@ function Login() {
                 <p>{Error}</p>
             </form>
             <br />
-            <p>or</p>
-            <Link to="/Authenticate/Signup">Signup</Link>
+            {/* <p>or</p> */}
+            {/* <Link to="/Authenticate/Signup">Signup</Link> */}
         </div>
     )
 }

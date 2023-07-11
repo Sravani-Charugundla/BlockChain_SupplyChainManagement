@@ -16,6 +16,9 @@ const NavAsc = () => {
                             <li className="nav-item active">
                                 <Link to = "/aschome " className="nav-link navbar-link">Dashboard</Link>
                             </li>
+                            <li className="nav-item active">
+                                <Link to = "/Components/ASC/SendDiv " className="nav-link navbar-link">BroadcastedRequests</Link>
+                            </li>
                         </ul>
                     </div>
                 </nav>

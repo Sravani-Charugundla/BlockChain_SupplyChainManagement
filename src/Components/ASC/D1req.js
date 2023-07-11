@@ -5,7 +5,6 @@ import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation } from 'react-router-dom';
 import { ASCsaveRequestData } from './ASCApi';
-
 import axios from 'axios';
 
 
@@ -55,12 +54,14 @@ const D1req = () => {
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.showtoasc().call();
+    console.log(req);
     const filteredRequests = req.filter((item) => item[4]==loc);
     setRequests(filteredRequests.reverse());
   };
 
   const addRequest = async (reqid,ord) => {
     var r = reqid;
+    console.log(reqid,ord);
     // Update the disabled state in the requests array
     const updatedRequests  = [...requests];
     var buttonId = reqid + "2";
@@ -71,11 +72,19 @@ const D1req = () => {
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const acptd = await window.contract.methods.showtoasc().call();
+    console.log(acptd);
     const filteredReq = acptd.filter(item=>item[2]==reqid&&item[3]==ord);
-    if(filteredReq.lenght>0)
+    if(filteredReq.length>0)
     {
       const timestamp = new Date().toLocaleString();
-      const nacpt = [filteredReq[r][0], filteredReq[r][1],filteredReq[r][2], filteredReq[r][3], filteredReq[r][4], 'AcceptedbyASC', timestamp];
+
+      const nacpt = [filteredReq[0][0],
+       filteredReq[0][1],
+       filteredReq[0][2], 
+       filteredReq[0][3], 
+       filteredReq[0][4], 
+       'AcceptedbyASC',
+        timestamp,]
       setAcpt(prevAcpt => [...prevAcpt, nacpt]);
     }
 
@@ -139,7 +148,7 @@ const D1req = () => {
             RequestID: reqData[2],
             UNITID: loc,
             Item:reqData[3],
-            SentTo:"SentToOtherUnits",
+            SentTo:"AcceptedByASC",
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
             fromAddress: transactionReceipt.from,
@@ -148,7 +157,7 @@ const D1req = () => {
             status: 'success',
           };
           await ASCsaveRequestData(requestData);
-          await updateOrderStatus(reqData[2], 'SentToOtherUnits', currentTimestamp);
+          await updateOrderStatus(reqData[2], 'AcceptedByASC', currentTimestamp);
         }
       }
 
@@ -179,7 +188,7 @@ const D1req = () => {
             status: 'success',
           };
           await ASCsaveRequestData(requestData);
-          await updateOrderStatus(reqData[2], 'SentToASC', currentTimestamp);
+          await updateOrderStatus(reqData[1],'SentToDiv', currentTimestamp);
 
         }
       }

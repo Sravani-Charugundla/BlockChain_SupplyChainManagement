@@ -72,7 +72,7 @@ const U1req = () => {
     window.contract = await new window.web3.eth.Contract(ABI, Address);
     const req = await window.contract.methods.display1DArray().call();
     const filteredRequests = req.filter((item) => item[3] === loc);
-    setRequests(filteredRequests);
+    setRequests(filteredRequests.reverse());
   };
 
   var sord;
@@ -232,7 +232,6 @@ const U1req = () => {
                      disabled={disabledButtons.includes(`${req[0]}`)}
                       type="button"
                       className="btn btn-info"
-                      // disabled={req.queueDisabled}
                       onClick={() => handleQueueRequest(req[0], req[1])}
                     >
                       Queue Request

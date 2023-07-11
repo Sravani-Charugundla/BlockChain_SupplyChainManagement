@@ -26,17 +26,15 @@ import SendASC from './Components/Divisions/SendASC';
 const App = () => {
   return (
     
-    
     <Router>
       <Routes>
         <Route path="/" element={<NavAuth/>} />
         <Route path="/Authenticate/Signup" element={<NavAuth/>} />
-
         <Route path="/Components/ASC/aschome" element={<Navbar />} />
         <Route path="/divhome" element={<Navbar />} />
         <Route path="/unihome" element={<Navbar />} />
         <Route path="/Components/Units/Unit01" element={<NavUnits />} />
-        <Route path="/Components/Divisions/DU1" element={<NavDiv/>} />
+        <Route path="/Components/Divisions/DU1" element={<NavAuth/>} />
         <Route path="/Components/Units/AllReq" element = {<NavUnits/>}/>
         <Route path="/Components/Units/UniAcptReq" element = {<NavUnits/>}/>
         <Route path="/Components/Units/OpReq" element = {<NavUnits/>}/>

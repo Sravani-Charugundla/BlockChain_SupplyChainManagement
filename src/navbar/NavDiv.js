@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import './navbar.css';
 
 const NavDiv = () => {
+    
     var loc_uni = localStorage.getItem('Unit_name');
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">

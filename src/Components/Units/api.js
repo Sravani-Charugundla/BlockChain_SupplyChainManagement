@@ -8,8 +8,6 @@ export async function saveRequestData(requestData) {
     requestData.gasUsed = requestData.gasUsed.toString();
 
     const response = await axios.post('http://localhost:8000/api/saveRequestData', requestData);
-    console.log(response.data);
-
     return response.data;
   } catch (error) {
     console.log(error);

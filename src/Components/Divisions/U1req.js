@@ -54,9 +54,9 @@ const U1req = () => {
     }
   };
 
-  const updateOrderStatus = async (orderId, status, timestamp) => {
+  const updateOrderStatus = async (orderId,status, timestamp) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/updateOrderStatus', {
+      const response = await axios.post('http://localhost:8000/api/SCMupdateOrderStatus', {
         orderId: orderId,
         status: status,
         timestamp: timestamp
@@ -79,7 +79,7 @@ const U1req = () => {
   const handleUnavailable = async (id, ord) => {
     console.log(id, ord);
     const updatedRequests = [...requests];
-    var buttonId = id + "1";
+    var buttonId = id +"_" + ord+ "1";
     const updatedDisabledButtons = [...disabledButtons, buttonId];
     setDisabledButtons(updatedDisabledButtons);// Store the updated disabled buttons in local storage
     localStorage.setItem('disabledButtons', JSON.stringify(updatedDisabledButtons));
@@ -111,7 +111,7 @@ const U1req = () => {
   const handleQueueRequest = async (id, ord) => {
     console.log(id, ord);
     const updatedRequests = [...requests];
-    var buttonId = id;
+    var buttonId = id+"_" + ord;
     const updatedDisabledButtons = [...disabledButtons, buttonId];
     setDisabledButtons(updatedDisabledButtons);// Store the updated disabled buttons in local storage
     localStorage.setItem('disabledButtons', JSON.stringify(updatedDisabledButtons));
@@ -161,7 +161,7 @@ const U1req = () => {
             status: 'success',
           };
           await DivsaveRequestData(requestData);
-          await updateOrderStatus(reqData[2], 'SentToOtherUnits', currentTimestamp);
+          await updateOrderStatus(reqData[2],'SentToOtherUnits', currentTimestamp);
         }
       }
     }
@@ -228,8 +228,8 @@ const U1req = () => {
                   <td>{req[2]}</td>
                   <td>
                     <button
-                     id = {`${req[0]}`}
-                     disabled={disabledButtons.includes(`${req[0]}`)}
+                     id={`${req[0]}_${req[1]}`}
+                     disabled={disabledButtons.includes(`${req[0]}_${req[1]}`)}
                       type="button"
                       className="btn btn-info"
                       onClick={() => handleQueueRequest(req[0], req[1])}
@@ -239,10 +239,10 @@ const U1req = () => {
                   </td>
                   <td>
                     <button
-                      id = {`${req[0]}1`}
+                      id = {`${req[0]}_${req[1]}1`}
                       type="button"
                       className="btn btn-danger"
-                      disabled={disabledButtons.includes(`${req[0]}1`)}
+                      disabled={disabledButtons.includes(`${req[0]}_${req[1]}1`)}
                       onClick={() => handleUnavailable(req[0], req[1])}
                     >
                       Unavailable

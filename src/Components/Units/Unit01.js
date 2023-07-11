@@ -72,7 +72,7 @@ const Unit01 = () => {
     setI(i + 1);
     setData((prevData) => [...prevData, newItem]);
   };
-
+  var Req;
   const handleRemoveClick = () => {
     const newData = [...data];
     newData.pop();
@@ -101,14 +101,14 @@ const Unit01 = () => {
       alert('Place Request');
     }
   };
-  const updateOrderStatus = async (orderId, status, timestamp) => {
+  const updateOrderStatus = async (orderId,status,timestamp) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/updateOrderStatus', {
+      const response = await axios.post('http://localhost:8000/api/SCMupdateOrderStatus', {
         orderId: orderId,
         status: status,
         timestamp: timestamp
       });
-      console.log(response.data); // Log the response if needed
+      console.log(response); // Log the response if needed
     } catch (error) {
       console.error('Error updating order status:', error);
     }
@@ -126,21 +126,26 @@ const Unit01 = () => {
         setTransactionHash(hash);
 
         if (receipt.status) {
-          const requestData = {
-            RequestID: sord,
-            UNITID: loc,
-            transactionHash: transactionReceipt.transactionHash,
-            toAddress: transactionReceipt.to,
-            fromAddress: transactionReceipt.from,
-            timestamp: currentTimestamp,
-            gasUsed: transactionReceipt.gasUsed,
-            status: 'success',
-          };
-          await saveRequestData(requestData);
-          console.log('Transaction successful.');
-          console.log('Transaction hash:', hash);
-          setTransactionStatus('Transaction successful');
-          await updateOrderStatus(sord, 'SentToDivisions', currentTimestamp);
+          for(var reqData of newData)
+          {
+            console.log(reqData[1]);
+            const requestData = {
+              RequestID: sord,
+              UNITID: loc,
+              Item:reqData[1],
+              transactionHash: transactionReceipt.transactionHash,
+              toAddress: transactionReceipt.to,
+              fromAddress: transactionReceipt.from,
+              timestamp: currentTimestamp,
+              gasUsed: transactionReceipt.gasUsed,
+              status: 'success',
+            };
+            await saveRequestData(requestData);
+            console.log('Transaction successful.');
+            console.log('Transaction hash:', hash);
+            setTransactionStatus('Transaction successful');
+            await updateOrderStatus(sord,'SentToDivisions', currentTimestamp);
+          }
         } else {
           console.log('Transaction hash:', hash);
           setTransactionStatus('Transaction failed');

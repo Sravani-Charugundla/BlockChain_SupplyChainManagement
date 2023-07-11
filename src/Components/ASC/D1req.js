@@ -126,7 +126,7 @@ const D1req = () => {
  
   const updateOrderStatus = async (orderId, status, timestamp) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/updateOrderStatus', {
+      const response = await axios.post('http://localhost:8000/api/SCMupdateOrderStatus', {
         orderId: orderId,
         status: status,
         timestamp: timestamp

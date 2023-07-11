@@ -64,7 +64,7 @@ const D1req = () => {
     console.log(reqid,ord);
     // Update the disabled state in the requests array
     const updatedRequests  = [...requests];
-    var buttonId = reqid + "2";
+    var buttonId = reqid+"_" + ord + "2";
     const updatedDisabledButtons = [...disabledButtons, buttonId];
     setDisabledButtons(updatedDisabledButtons);// Store the updated disabled buttons in local storage
     localStorage.setItem('disabledButtons', JSON.stringify(updatedDisabledButtons));
@@ -96,7 +96,7 @@ const D1req = () => {
   const handleForwardToDivs = async(id,ord)=>{
     console.log(id,ord);
     const updatedRequests = [...requests];
-    var buttonId = id+"3";
+    var buttonId = id+"_" + ord+"3";
     const updatedDisabledButtons = [...disabledButtons, buttonId];
     setDisabledButtons(updatedDisabledButtons);// Store the updated disabled buttons in local storage
     localStorage.setItem('disabledButtons', JSON.stringify(updatedDisabledButtons));
@@ -220,22 +220,22 @@ const D1req = () => {
               <td>{req[1]}</td>
               <td>
                 <button
-                  id = {`${req[2]}2`}
+                  id = {`${req[2]}_${req[3]}2`}
                   type="button"
                   className="btn btn-info"
                   onClick={() => addRequest(req[2],req[3])}
-                  disabled={disabledButtons.includes(`${req[2]}2`)}
+                  disabled={disabledButtons.includes(`${req[2]}_${req[3]}2`)}
                 >
                   Available
                 </button>
               </td>
               <td>
                 <button
-                  id = {`${req[2]}3`}
+                  id = {`${req[2]}_${req[3]}3`}
                   type="button"
                   className="btn btn-info"
                   onClick={() => handleForwardToDivs(req[2],req[3])}
-                  disabled={disabledButtons.includes(`${req[2]}3`)}
+                  disabled={disabledButtons.includes(`${req[2]}_${req[3]}3`)}
                 >
                   Queue Request
                 </button>

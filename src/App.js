@@ -22,6 +22,7 @@ import CheckStatus from './Components/Units/CheckStatus';
 import SendUnits from './Components/Divisions/SendUnits';
 import SendASC from './Components/Divisions/SendASC';
 import SendDiv from './Components/ASC/SendDiv';
+import Ascacpt from './Components/ASC/Ascacpt';
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
         <Route path = "/Components/Divisions/SendUnits" element = {<NavDiv/>}/>
         <Route path = "/Components/Divisions/SendASC" element = {<NavDiv/>}/>
         <Route path = "/Components/ASC/SendDiv" element = {<NavAsc/>}/>
+        <Route path = "/Components/ASC/Ascacpt" element = {<NavAsc/>}/>
 
       </Routes>
       <Routes>
@@ -66,6 +68,8 @@ const App = () => {
         <Route path = "/Components/Divisions/SendUnits" element = {<SendUnits/>}/>
         <Route path = "/Components/Divisions/SendASC" element = {<SendASC/>}/>
         <Route path = "/Components/ASC/SendDiv" element = {<SendDiv/>}/>
+        <Route path = "/Components/ASC/Ascacpt" element = {<Ascacpt/>}/>
+
       </Routes>
     </Router>
   );

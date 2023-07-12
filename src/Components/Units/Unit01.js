@@ -144,7 +144,8 @@ const Unit01 = () => {
             console.log('Transaction successful.');
             console.log('Transaction hash:', hash);
             setTransactionStatus('Transaction successful');
-            await updateOrderStatus(sord,'SentToDivisions', currentTimestamp);
+            var reqId = sord+ "_"+reqData[1];
+            await updateOrderStatus(reqId,'SentToDivisions', currentTimestamp);
           }
         } else {
           console.log('Transaction hash:', hash);

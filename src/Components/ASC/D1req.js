@@ -157,7 +157,8 @@ const D1req = () => {
             status: 'success',
           };
           await ASCsaveRequestData(requestData);
-          await updateOrderStatus(reqData[2], 'AcceptedByASC', currentTimestamp);
+          var reqId = reqData[2]+"_"+reqData[3];
+          await updateOrderStatus(reqId, 'AcceptedByASC', currentTimestamp);
         }
       }
 
@@ -175,6 +176,7 @@ const D1req = () => {
       {
         for(var reqData of unav)
         {
+          console.log(reqData);
           const requestData = {
             RequestID: reqData[2],
             UNITID: loc,
@@ -188,7 +190,8 @@ const D1req = () => {
             status: 'success',
           };
           await ASCsaveRequestData(requestData);
-          await updateOrderStatus(reqData[1],'SentToDiv', currentTimestamp);
+          var reqId = reqData[2]+"_"+reqData[3];
+          await updateOrderStatus(reqId,'SentToDiv', currentTimestamp);
 
         }
       }

@@ -111,7 +111,7 @@ const AllReq = () => {
                   <td>{item[1]}</td>
                   <td>{item[2]}</td>
                   <td>
-                    <button type="button" className="btn btn-primary" onClick={()=>move(item[0])} >CheckStatus</button>
+                    <button type="button" className="btn btn-primary" onClick={()=>move(`${item[0]}_${item[1]}`)} >CheckStatus</button>
                   </td>
                   <td>
                     <button type="button" className="btn btn-primary" onClick={() => handleClick(item[0])}>

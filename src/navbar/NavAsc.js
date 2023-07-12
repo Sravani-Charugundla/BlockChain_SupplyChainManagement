@@ -19,6 +19,9 @@ const NavAsc = () => {
                             <li className="nav-item active">
                                 <Link to = "/Components/ASC/SendDiv " className="nav-link navbar-link">BroadcastedRequests</Link>
                             </li>
+                            <li className="nav-item active">
+                                <Link to = "/Components/ASC/Ascacpt " className="nav-link navbar-link">AcceptedRequests</Link>
+                            </li>
                         </ul>
                     </div>
                 </nav>

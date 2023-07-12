@@ -109,7 +109,7 @@ const SendASC = () => {
                                     <td>{item[3]}</td>
                                     <td>{item[1]}</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => move(item[2])} >CheckStatus</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => move(`${item[2]}_${item[3]}`)} >CheckStatus</button>
                                     </td>
                                     <td>
                                         <button type="button" className="btn btn-primary" onClick={() => handleClick(item[2],item[3])}>

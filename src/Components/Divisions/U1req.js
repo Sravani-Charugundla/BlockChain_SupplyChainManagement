@@ -161,7 +161,8 @@ const U1req = () => {
             status: 'success',
           };
           await DivsaveRequestData(requestData);
-          await updateOrderStatus(reqData[2],'SentToOtherUnits', currentTimestamp);
+          var reqId = reqData[2]+"_"+ reqData[3];
+          await updateOrderStatus(reqId,'SentToOtherUnits', currentTimestamp);
         }
       }
     }
@@ -191,7 +192,8 @@ const U1req = () => {
             status: 'success',
           };
           await DivsaveRequestData(requestData);
-          await updateOrderStatus(reqData[2], 'SentToASC', currentTimestamp);
+          var reqId = reqData[2]+"_"+ reqData[3];
+          await updateOrderStatus(reqId, 'SentToASC', currentTimestamp);
 
         }
       }

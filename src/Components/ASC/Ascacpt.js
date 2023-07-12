@@ -5,13 +5,11 @@ import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Modal, Button, Card } from 'react-bootstrap';
-import './SendUnits.css';
+import './SendDiv.css';
 import { useNavigate } from 'react-router-dom';
 
-
-const SendUnits = () => {
-
-    var Uni_name = localStorage.getItem('Unit_name');
+const Ascacpt = () => {
+    var Div_name = localStorage.getItem('Div_name');
     const history = useNavigate();
     const [account, setAccount] = useState('');
     const [contractConnected, setContractConnected] = useState(false);
@@ -50,8 +48,9 @@ const SendUnits = () => {
         try {
             window.web3 = new Web3(window.ethereum);
             window.contract = new window.web3.eth.Contract(ABI, Address);
-            const req = await window.contract.methods.d_tu().call();
-            const filteredReq = req.filter((item) => item[0] === Uni_name);
+            const req = await window.contract.methods.AscToD().call();
+            console.log(req);
+            const filteredReq = req.filter((item) => item[4] === Div_name);
             setReqData(filteredReq.reverse());
         } catch (error) {
             console.error('Error reading data:', error);
@@ -60,9 +59,9 @@ const SendUnits = () => {
 
     const handleClick = async (reqid,ord) => {
         console.log(reqid);
-        const stat = "SentToOtherUnits";
+        const stat = "SentToDiv";
         try {
-            const response = await axios.get(`http://localhost:8000/api/Divdata/${reqid}/${ord}/${stat}`);
+            const response = await axios.get(`http://localhost:8000/api/ASCdata/${reqid}/${ord}/${stat}`);
             const transactionData = response.data[0];
             console.log(transactionData);
             setTransactionDetails(transactionData);
@@ -105,15 +104,15 @@ const SendUnits = () => {
                         <tbody>
                             {reqData.map((item, index) => (
                                 <tr key={index}>
+                                    <td>{item[2]}</td>
+                                    <td>Request-{item[1]}</td>
                                     <td>{item[0]}</td>
-                                    <td>Request-{item[2]}</td>
                                     <td>{item[3]}</td>
-                                    <td>{item[1]}</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => move(`${item[2]}_${item[3]}`)} >CheckStatus</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => move(item[1])} >CheckStatus</button>
                                     </td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => handleClick(item[2],item[3])}>
+                                        <button type="button" className="btn btn-primary" onClick={() => handleClick(item[1],item[0])}>
                                             Transaction
                                         </button>
                                     </td>
@@ -155,10 +154,8 @@ const SendUnits = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
         </div>
     )
 }
 
-export default SendUnits;
+export default Ascacpt;

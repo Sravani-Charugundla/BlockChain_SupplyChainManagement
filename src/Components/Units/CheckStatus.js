@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './timeline.css';
+
+
 
 const CheckStatus = () => {
   const location = useLocation();
@@ -29,23 +31,17 @@ const CheckStatus = () => {
   return (
     <div>
       <h3>Order ID: {ordId}</h3>
-      <div class="container">
-        <ul class="timeline">
-          {statusArray.map((status, index) => (
-            <li key={index}>
-              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4 class="timeline-title">{status}</h4>
-                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {timestampArray[index]}</small></p>
-                </div>
-                <div class="timeline-body">
-                  <p>Content for this status</p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="timeline">
+        {statusArray.map((status, index) => (
+          <div key={index} className="timeline-event">
+            <div className="timeline-event-dot"></div>
+            <div className="timeline-event-content">
+              <h4>{status}</h4>
+              <p>{timestampArray[index]}</p>
+              <p>Content for this status</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

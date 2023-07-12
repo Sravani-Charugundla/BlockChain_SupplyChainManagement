@@ -48,9 +48,9 @@ const Ascacpt = () => {
         try {
             window.web3 = new Web3(window.ethereum);
             window.contract = new window.web3.eth.Contract(ABI, Address);
-            const req = await window.contract.methods.AscToD().call();
+            const req = await window.contract.methods.showacceptedbyunits().call();
             console.log(req);
-            const filteredReq = req.filter((item) => item[4] === Div_name);
+            const filteredReq = req.filter((item) => item[4] === Div_name && item[5]==="AcceptedbyASC");
             setReqData(filteredReq.reverse());
         } catch (error) {
             console.error('Error reading data:', error);
@@ -104,15 +104,15 @@ const Ascacpt = () => {
                         <tbody>
                             {reqData.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item[2]}</td>
-                                    <td>Request-{item[1]}</td>
                                     <td>{item[0]}</td>
+                                    <td>Request-{item[2]}</td>
                                     <td>{item[3]}</td>
+                                    <td>{item[1]}</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => move(item[1])} >CheckStatus</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => move(item[2])} >CheckStatus</button>
                                     </td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => handleClick(item[1],item[0])}>
+                                        <button type="button" className="btn btn-primary" onClick={() => handleClick(item[2],item[3])}>
                                             Transaction
                                         </button>
                                     </td>

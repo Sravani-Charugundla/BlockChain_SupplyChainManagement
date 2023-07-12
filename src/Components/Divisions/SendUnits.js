@@ -79,7 +79,7 @@ const SendUnits = () => {
 
     const move = async (reqid) =>
     {
-    history("/components/Units/CheckStatus",{state:{id:reqid}})
+    history("/Components/Units/CheckStatus",{state:{id:reqid}})
     
     }
 

@@ -72,7 +72,6 @@ const Unit01 = () => {
     setI(i + 1);
     setData((prevData) => [...prevData, newItem]);
   };
-  var Req;
   const handleRemoveClick = () => {
     const newData = [...data];
     newData.pop();

@@ -175,13 +175,13 @@ const Unit01 = () => {
         <button id="Remove" className="btn btn-primary small-button" onClick={handleRemoveClick}>Click to Remove Items</button>
       </div>
 
-      <form>
+      <form> 
         <div className="form-floating colored-div">
           <div style={{ textAlign: 'center' }}>
-            <label>
+            {/* <label>
               <h2>Supplies - Quantity</h2>
-            </label>
-          </div>
+            </label> */}
+          </div >
           <div id="textboxDiv">
             {data.map((item, index) => (
               <div key={index}>{item}</div>

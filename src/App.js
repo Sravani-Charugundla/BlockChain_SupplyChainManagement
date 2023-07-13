@@ -30,8 +30,8 @@ const App = () => {
     
     <Router>
       <Routes>
-        <Route path="/" element={<NavAuth/>} />
-        <Route path="/Authenticate/Signup" element={<NavAuth/>} />
+        {/* <Route path="/" element={<NavAuth/>} /> */}
+       
         <Route path="/Components/ASC/aschome" element={<Navbar />} />
         <Route path="/divhome" element={<Navbar />} />
         <Route path="/unihome" element={<Navbar />} />

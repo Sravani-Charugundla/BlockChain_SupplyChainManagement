@@ -20,12 +20,12 @@ const Aschome = () => {
 
   return (
     <div className="container-md d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <div className="card">
+      <div className="card" style={{height:'300px'}}>
         <form onSubmit={handleSubmit}>
           <div className="card-body">
             <legend className="card-title">Check Requests from Units</legend>
             <div className="form-group">
-              <label htmlFor="divisionID">Enter Unit ID</label>
+              <label htmlFor="divisionID" style={{marginTop:'30px'}}>Enter Unit ID</label>
               <input
                 type="text"
                 className="form-control"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import './Login.css';
 
 function Login() {
   const history = useNavigate();
@@ -50,16 +51,20 @@ function Login() {
   return (
     <div className="card-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <div className="card" style={{ maxWidth: '300px' }}>
+      
         <div className="login">
-          <h1>Login</h1>
-          <form action="POST">
-            <input type="text" onChange={(e) => setEmail(e.target.value)} placeholder="UserID" />
+        <h1>Login</h1>
+          <form action="POST" style={{justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
+          
+          <label htmlFor="UserId">Enter UserID</label>
+            <input type="text" id = "UserId" onChange={(e) => setEmail(e.target.value)} placeholder="UserID" />
             <br />
             <br />
-            <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+            <label htmlFor="password">Enter Password</label>
+            <input type="password" id = "password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
             <br />
             <br />
-            <input type="submit" className="btn btn-success" onClick={submit}/>
+            <input type="submit" className="btn btn-success" onClick={submit} value={"Login"}/>
             <p>{Error}</p>
           </form>
           <br />

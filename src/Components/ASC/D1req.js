@@ -113,7 +113,7 @@ const D1req = () => {
         filteredReq[0][0],
         filteredReq[0][1],
         filteredReq[0][4],
-        'sentToUnits',
+        'sentToDivisions',
         timestamp,
       ];
       setUnav(prevUnav => [...prevUnav, nunav]);
@@ -144,6 +144,7 @@ const D1req = () => {
       const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
       if (receipt.status) {
         for (var reqData of acpt) {
+          console.log(reqData);
           const requestData = {
             RequestID: reqData[2],
             UNITID: loc,
@@ -178,9 +179,9 @@ const D1req = () => {
         {
           console.log(reqData);
           const requestData = {
-            RequestID: reqData[2],
+            RequestID: reqData[1],
             UNITID: loc,
-            Item:reqData[3],
+            Item:reqData[0],
             SentTo:"SentToDivisions",
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
@@ -190,7 +191,7 @@ const D1req = () => {
             status: 'success',
           };
           await ASCsaveRequestData(requestData);
-          var reqId = reqData[2]+"_"+reqData[3];
+          var reqId = reqData[1]+"_"+reqData[0];
           await updateOrderStatus(reqId,'SentToDiv', currentTimestamp);
 
         }

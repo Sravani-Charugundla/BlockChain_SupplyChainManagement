@@ -59,7 +59,7 @@ const Ascacpt = () => {
 
     const handleClick = async (reqid,ord) => {
         console.log(reqid);
-        const stat = "SentToDiv";
+        const stat = "AcceptedByASC";
         try {
             const response = await axios.get(`http://localhost:8000/api/ASCdata/${reqid}/${ord}/${stat}`);
             const transactionData = response.data[0];
@@ -109,7 +109,7 @@ const Ascacpt = () => {
                                     <td>{item[3]}</td>
                                     <td>{item[1]}</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => move(item[2])} >CheckStatus</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => move(`${item[2]}_${item[3]}`)} >CheckStatus</button>
                                     </td>
                                     <td>
                                         <button type="button" className="btn btn-primary" onClick={() => handleClick(item[2],item[3])}>

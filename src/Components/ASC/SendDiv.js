@@ -59,9 +59,10 @@ const SendDiv = () => {
 
     const handleClick = async (reqid,ord) => {
         console.log(reqid);
-        const stat = "SentToDiv";
+        const stat = "SentToDivisions";
         try {
             const response = await axios.get(`http://localhost:8000/api/ASCdata/${reqid}/${ord}/${stat}`);
+            console.log(response);
             const transactionData = response.data[0];
             console.log(transactionData);
             setTransactionDetails(transactionData);

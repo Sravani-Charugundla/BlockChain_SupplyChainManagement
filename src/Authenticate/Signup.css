@@ -3,14 +3,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: linear-gradient(to right, #ADD8E6, #ed9df5);
+    background-image: linear-gradient(to right, #3d40fa, #9d5fcf);
     animation: changeGradient 10s infinite;
   }
 
   @keyframes changeGradient {
-    0% { background-image: linear-gradient(to right, #ADD8E6, #d165f1); }
-    50% { background-image: linear-gradient(to right, #fa65fa, #ADD8E6); }
-    100% { background-image: linear-gradient(to right, #ADD8E6, #d165f1); }
+    0% { background-image: linear-gradient(to right, #3d40fa, #9d5fcf); }
+    50% { background-image: linear-gradient(to right, #9d5fcf, #3d40fa); }
+    100% { background-image: linear-gradient(to right, #3d40fa, #9d5fcf); }
   }
   
   .card {

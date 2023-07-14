@@ -26,6 +26,9 @@ const NavDiv = () => {
                             </li>
                         </ul>
                     </div>
+                    <div className="d-flex justify-content-end">
+                    <a className="navbar-brand" href="#"><h1>{loc_uni} Requests</h1></a>
+                </div>
                 </nav>
   )
 }

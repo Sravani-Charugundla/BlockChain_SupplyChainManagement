@@ -10,28 +10,31 @@ const NavUnits = () => {
     function convertToPascalCase(variable) {
         // Remove whitespace and special characters
         variable = variable.replace(/\s+/g, "").replace(/[_-]/g, "");
-      
+
         // Capitalize the first letter of the variable and convert the rest to lowercase
         variable = variable.charAt(0).toUpperCase() + variable.slice(1).toLowerCase();
-      
+
         return variable;
-      }
+    }
 
     // Example usage
 
     var pascalCase_Uname = convertToPascalCase(unit_name);
     var pascalCase_Dname = convertToPascalCase(div_name);
     console.log(pascalCase_Uname);
-    const handlelogout = ()=>{
-        window.history.replaceState(null,'','/');
+    const handlelogout = () => {
+        window.history.replaceState(null, '', '/');
         Navigate('/');
+        localStorage.removeItem('store_uni');
+        localStorage.removeItem('store_div');
+        
 
     }
-    
+
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a className="navbar-brand" href="#"><h1>{pascalCase_Uname} {pascalCase_Dname}</h1></a>
+
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -51,7 +54,13 @@ const NavUnits = () => {
                     </li>
 
                 </ul>
+                
             </div>
+            <div className="d-flex justify-content-end">
+                    <a className="navbar-brand">
+                        <h3>{pascalCase_Uname} {pascalCase_Dname}</h3>
+                    </a>
+                </div>
         </nav>
 
     )

@@ -1,7 +1,75 @@
-.small-button {
-    font-size: 15px; /* Adjust the font size to your desired value */
-    padding: 5px 5px; /* Adjust the padding to your desired value */
-    width: 120px;
+.unit-container {
+  max-width: 600px;
+  margin: 0 auto;
+  .unit-container {
+    max-width: 600px;
+    margin: 0 auto;
+    animation: backgroundAnimation 20s infinite linear;
   }
- 
+}
   
+  @keyframes backgroundAnimation {
+    0% {
+      background: linear-gradient(45deg, #ffcc00, #ff6699);
+    }
+    50% {
+      background: linear-gradient(45deg, #ff6699, #ffcc00);
+    }
+    100% {
+      background: linear-gradient(45deg, #ffcc00, #ff6699);
+    }
+  }
+  
+
+
+.unit-container p {
+  margin-bottom: 10px;
+}
+
+.unit-container h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.unit-container .button-container {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.unit-container form .form-floating {
+  /* Add your desired background color */
+  background-color: #f2f2f2;
+  padding: 10px;
+  background-color: #c89dfa;
+}
+
+.unit-container form .form-floating div {
+  margin-bottom: 10px;
+}
+
+.unit-container .center-text {
+  text-align: center;
+}
+
+.unit-container .small-button {
+  margin-right: 5px;
+  padding: 5px 200px;
+  font-size: 17px;
+
+}
+
+.unit-container .small-button--smaller {
+  padding: 3px 3px;
+  font-size: 10px;
+}
+
+
+
+.unit-container .transaction-success {
+  color: green;
+}
+
+.unit-container .transaction-failed {
+  color: red;
+}
+

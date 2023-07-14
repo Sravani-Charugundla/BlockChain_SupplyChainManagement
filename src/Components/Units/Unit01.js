@@ -7,6 +7,7 @@ import './UnitStyle.css'
 import { useLocation } from 'react-router-dom';
 import { saveRequestData } from './api';
 import axios from 'axios';
+import { Modal, Button } from 'react-bootstrap';
 
 
 
@@ -27,12 +28,21 @@ const Unit01 = () => {
   const [data, setData] = useState([]);
   const [n, setN] = useState(0);
   const [i, setI] = useState(0);
+  const [badgeCount, setBadgeCount] = useState(0);//Used for displaying the badge count
+  // const [showModal, setShowModal] = useState(false);//to show the modal
+
 
 
   useEffect(() => {
     connectMetamask();
     connectContract();
   }, []);
+
+  useEffect(() => {
+    setBadgeCount(newData.length);
+  }, [newData]);
+
+
 
   const connectMetamask = async () => {
     if (window.ethereum !== undefined) {
@@ -71,7 +81,13 @@ const Unit01 = () => {
     );
     setI(i + 1);
     setData((prevData) => [...prevData, newItem]);
+    
   };
+
+  // const handleCloseModal = () => {
+  //   setShowModal(false);
+  // };
+
   const handleRemoveClick = () => {
     const newData = [...data];
     newData.pop();
@@ -99,6 +115,7 @@ const Unit01 = () => {
     } else {
       alert('Place Request');
     }
+    // setShowModal(true);
   };
   const updateOrderStatus = async (orderId,status,timestamp) => {
     try {
@@ -162,13 +179,12 @@ const Unit01 = () => {
   };
 
   return (
-    <div>
+    <div className="unit-container">
 
       <p id="accountArea">Account is: {account}</p>
       <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
 
-      <p id="hash">Transaction hash: {transactionHash}</p>
-      <p id="transactionStatus">Transaction status: {transactionStatus}</p>
+      
       <h1 style={{ textAlign: 'center' }}>SUPPLY REQUEST FORM</h1>
       <div style={{ textAlign: 'right' }}>
         <button id="Add" className="btn btn-primary small-button" onClick={handleAddClick}>Click to Add Items</button>
@@ -199,11 +215,38 @@ const Unit01 = () => {
       </datalist>
 
       <div style={{ textAlign: 'center' }}>
-        <button id="see" className="btn btn-warning" onClick={handleSeeClick}>ADD TO CART</button>
+        <button id="see" className="btn btn-warning" onClick={handleSeeClick}>
+          Confirm Request
+          </button>
+          {/* <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Request Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Request ID: {sord}</p>
+          {newData.map((item, index) => (
+            <div key={index}>
+              <p>Item: {item[1]}</p>
+              <p>Quantity: {item[2]}</p>
+            </div>
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
         <br />
         <br />
-        <button type="button" className="btn btn-success" onClick={changeWord}>Place Request</button>
+        <button type="button" className="btn btn-success" onClick={changeWord}>Place Request
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {badgeCount}
+        <span class="visually-hidden">unread messages</span>
+      </span></button>
       </div>
+      <p id="hash">Transaction hash: {transactionHash}</p>
+      <p id="transactionStatus" className={transactionStatus === 'Transaction successful' ? 'transaction-success' : 'transaction-failed'}>Transaction status: {transactionStatus}</p>
     </div>
   );
 };

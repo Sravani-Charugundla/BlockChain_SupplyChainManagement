@@ -74,3 +74,24 @@
   color: red;
 }
 
+.responsive-div {
+  background-color: lightgray;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Styles for screens with a maximum width of 600px */
+@media (max-width: 600px) {
+  .responsive-div {
+    font-size: 16px;
+  }
+}
+
+/* Styles for screens with a minimum width of 601px */
+@media (min-width: 601px) {
+  .responsive-div {
+    font-size: 24px;
+  }
+}
+
+

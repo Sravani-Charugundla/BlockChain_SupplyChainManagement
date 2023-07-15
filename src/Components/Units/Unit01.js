@@ -166,7 +166,7 @@ const Unit01 = () => {
         <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
       </div>
       <form>
-        <div className="form-floating colored-div">
+        <div className="form-floating colored-div responsive-div">
           {data.map((item) => (
             <div key={item.id} className="wrapper">
               <span className="inline">

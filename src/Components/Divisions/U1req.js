@@ -206,10 +206,10 @@ const U1req = () => {
 
   return (
     <div>
-      <div className="container-md">
+      <div className="container-fluid">
         <p id="accountArea">Account is: {account}</p>
         <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
-        <form className="form-floating">
+        <div className="table-responsive">
           <table className="table table-bordered table-hover">
             <thead className="table-dark">
               <tr>
@@ -272,7 +272,7 @@ const U1req = () => {
               Forward to ASC
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

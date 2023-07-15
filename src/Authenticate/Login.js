@@ -47,13 +47,22 @@ function Login() {
       console.log(e);
     }
   }
+  function handleRedirect() {
+    window.open("https://www.figma.com/file/c2Cen99OsqSHMt6ZF9xpe7/Untitled?type=whiteboard&node-id=0-1&t=wihC9wt6PVS25Qjz-0", "_blank");
+  }
+  
 
   return (
     <div className="card-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <button onClick={handleRedirect} style={{ position: 'absolute', top: '10px', right: '10px' }} className="btn btn-info">
+            FLOWCHART
+          </button>
       <div className="card" style={{ maxWidth: '300px' }}>
+      
       
         <div className="login">
         <h1>Login</h1>
+        
           <form action="POST" style={{justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
           
           <label htmlFor="UserId">Enter UserID</label>

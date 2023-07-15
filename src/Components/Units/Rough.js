@@ -28,7 +28,7 @@ const Unit01 = () => {
   const [n, setN] = useState(0);
   const [badgeCount, setBadgeCount] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [newData, setNewData] = useState([]); // Store newData as a state variable
+
 
   useEffect(() => {
     connectMetamask();
@@ -76,26 +76,32 @@ const Unit01 = () => {
     setData((prevData) => prevData.filter(item => item.id !== id));
   };
 
+  var newData = [];
+  var sord;
+
   const handleSeeClick = () => {
     if (n === 0) {
       let ordid4 = localStorage.getItem('counter4') || 0;
-      const sord = ordid4.toString();
+      sord = ordid4.toString();
 
-      const newData = data.map(item => {
+      for (let j = 0; j < data.length; j++) {
+        const item = data[j];
         const textValue = item.itemValue;
         const numValue = item.quantityValue;
         const timestamp = new Date().toLocaleString();
-        return [sord, textValue, numValue, units_name, div_name, 'SentToDivison', timestamp];
-      });
+        const itemData = [sord, textValue, numValue, units_name, div_name, 'SentToDivison', timestamp];
+        newData.push(itemData);
+      }
 
       console.log(newData);
       ordid4++;
       localStorage.setItem('counter4', ordid4);
-      setNewData(newData); // Update the newData state
     } else {
       alert('Place Request');
     }
+    // {showInfo ? 'Hide Info' : 'Show Info'}
     setShowInfo(!showInfo);
+    // setShowModal(true);
   };
 
   const updateOrderStatus = async (orderId, status, timestamp) => {
@@ -126,7 +132,7 @@ const Unit01 = () => {
           for (var reqData of newData) {
             console.log(reqData[1]);
             const requestData = {
-              RequestID: reqData[0], // Use the updated request ID from newData
+              RequestID: sord,
               UNITID: loc,
               Item: reqData[1],
               transactionHash: transactionReceipt.transactionHash,
@@ -140,7 +146,7 @@ const Unit01 = () => {
             console.log('Transaction successful.');
             console.log('Transaction hash:', hash);
             setTransactionStatus('Transaction successful');
-            var reqId = reqData[0] + "_" + reqData[1];
+            var reqId = sord + "_" + reqData[1];
             await updateOrderStatus(reqId, 'SentToDivisions', currentTimestamp);
           }
         } else {
@@ -160,11 +166,14 @@ const Unit01 = () => {
 
   return (
     <div className="unit-container mt-5">
-      <h1 className="mt-10" style={{ textAlign: 'center' }}>SUPPLY REQUEST FORM</h1>
-      <div style={{ display: 'none' }}>
-        <p id="accountArea">Account is: {account}</p>
-        <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
+      
+      <h1  className="mt-10" style={{ textAlign: 'center' } }>SUPPLY REQUEST FORM</h1>
+      <div style={{display:'none'}}>
+      <p id="accountArea">Account is: {account}</p>
+      <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
+
       </div>
+     
       <form>
         <div className="form-floating colored-div">
           {data.map((item) => (
@@ -205,7 +214,7 @@ const Unit01 = () => {
           ))}
         </div>
       </form>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div  style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button id="Add" className="btn btn-info" onClick={handleAddClick}>Click to Add Items</button>
       </div>
       <datalist id="datalistOptions">
@@ -216,26 +225,29 @@ const Unit01 = () => {
         <option value="Banana" />
       </datalist>
       <div style={{ textAlign: 'center' }}>
-        <button id="see" className="btn btn-warning" onClick={handleSeeClick}>
+        <button id="see" className="btn btn-warning" onClick={handleSeeClick}
+        >
           Confirm Request
         </button>
         <br />
         <br />
         {showInfo && (
-          <div>
-            <button type="button" className="btn btn-success position-relative" onClick={changeWord}>
-              Place Request
-              {/* <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {badgeCount}
-                <span className="visually-hidden">unread messages</span>
-              </span> */}
-            </button>
-          </div>
-        )}
+        <div>
+         <button type="button" className="btn btn-success position-relative" onClick={changeWord}>
+          Place Request
+          {/* <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {badgeCount}
+            <span className="visually-hidden">unread messages</span>
+          </span> */}
+        </button>
+        </div>
+      )}
+        
       </div>
       <p id="transactionStatus" className={`transaction-status ${transactionStatus === 'Transaction successful' ? 'transaction-success' : 'transaction-failed'}`}>
-        Transaction status: {transactionStatus}
-      </p>
+  Transaction status: {transactionStatus}
+</p>
+
     </div>
   );
 };

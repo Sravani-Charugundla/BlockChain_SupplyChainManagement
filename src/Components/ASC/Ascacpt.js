@@ -84,11 +84,11 @@ const Ascacpt = () => {
 
 
     return (
-        <div className="container-md">
+        <div className="container-fluid">
             <p id="accountArea">Account is: {account}</p>
             <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
 
-            <form className="form-floating">
+           
                 <div className="table-responsive">
                     <table className="table table-bordered table-hover">
                         <thead className="table-dark">
@@ -121,7 +121,7 @@ const Ascacpt = () => {
                         </tbody>
                     </table>
                 </div>
-            </form>
+            
             <Modal show={showTransactionModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Transaction Details RequestID:  {transactionDetails?.RequestID}</Modal.Title>

@@ -24,6 +24,7 @@
 
 .unit-container p {
   margin-bottom: 10px;
+ 
 }
 
 .unit-container h1 {
@@ -40,7 +41,7 @@
   /* Add your desired background color */
   background-color: #f2f2f2;
   padding: 10px;
-  background-color: #c89dfa;
+  
 }
 
 .unit-container form .form-floating div {
@@ -51,17 +52,17 @@
   text-align: center;
 }
 
-.unit-container .small-button {
+/* .unit-container .small-button {
   margin-right: 5px;
   padding: 5px 200px;
   font-size: 17px;
 
-}
+} */
 
-.unit-container .small-button--smaller {
+/* .unit-container .small-button--smaller {
   padding: 3px 3px;
   font-size: 10px;
-}
+} */
 
 
 

@@ -23,6 +23,7 @@ import SendUnits from './Components/Divisions/SendUnits';
 import SendASC from './Components/Divisions/SendASC';
 import SendDiv from './Components/ASC/SendDiv';
 import Ascacpt from './Components/ASC/Ascacpt';
+import Footer from './Components/Footer';
 
 
 const App = () => {
@@ -71,7 +72,11 @@ const App = () => {
         <Route path = "/Components/ASC/Ascacpt" element = {<Ascacpt/>}/>
 
       </Routes>
+      <Footer />
     </Router>
+    
+    
+
   );
 };
 

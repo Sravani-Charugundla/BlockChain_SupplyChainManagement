@@ -24,6 +24,7 @@
     position: relative;
     margin: 0 auto;
     padding: 2em 0;
+    background-image: linear-gradient(to bottom, #F8F9FA, #c0dcfa); /* Gradient background */
   }
   
   .timeline:before {
@@ -32,18 +33,18 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background-color: #ddd;
+    background-color: #a09c9c;
     left: calc(50% - 2px);
   }
   
   .timeline-event:nth-child(even) .timeline-event-content {
       margin-left:-150px;
-      margin-right:360px;
+      margin-right:390px;
       text-align:right; 
   }
   
   .timeline-event:nth-child(odd) .timeline-event-content {
-      margin-left:360px; 
+      margin-left:390px; 
   }
   
   .timeline-event:nth-child(even) .timeline-event-content:before{
@@ -91,3 +92,43 @@
         animation-duration: .10s;
   }
   
+  .timeline {
+  /* Add necessary styles for the timeline container */
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-event {
+  /* Add necessary styles for each timeline event */
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.timeline-event-dot {
+  /* Add necessary styles for the timeline event dot */
+  width: 1rem;
+  height: 1rem;
+  background-color: #000;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.timeline-event-content {
+  /* Add necessary styles for the timeline event content */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adjustments for responsiveness */
+@media (max-width: 768px) {
+  .timeline-event {
+    flex-direction: column;
+  }
+
+  .timeline-event-dot {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}

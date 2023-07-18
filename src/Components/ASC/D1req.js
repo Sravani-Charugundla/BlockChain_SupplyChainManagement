@@ -204,7 +204,7 @@ const D1req = () => {
 
   return (
     <div>
-      <table className="table table-bordered table-hover">
+      <table className="table table-bordered table-hover table-responsive">
         <thead className="table-dark">
           <tr>
             <th scope="col">UNIT-ID</th>
@@ -226,11 +226,11 @@ const D1req = () => {
                 <button
                   id = {`${req[2]}_${req[3]}2`}
                   type="button"
-                  className="btn btn-info"
+                  className="btn btn-success"
                   onClick={() => addRequest(req[2],req[3])}
                   disabled={disabledButtons.includes(`${req[2]}_${req[3]}2`)}
                 >
-                  Available
+                  Select
                 </button>
               </td>
               <td>
@@ -249,14 +249,17 @@ const D1req = () => {
         </tbody>
       </table>
       <br />
+      <div style={{ textAlign: 'center' }}>
       <button type="button" className="btn btn-success" onClick={addreq}>
         Accept Request
       </button>
       <br/>
       <br/>
-      <button type="button" className="btn btn-danger" onClick={handleForwardToDiv}>
+      <button type="button" className="btn btn-info" onClick={handleForwardToDiv}>
         SendToDivisions
       </button>
+      </div>
+      
     </div>
   );
 };

@@ -143,14 +143,14 @@ const OpReq = () => {
         <p id="accountArea">Account is: {account}</p>
         <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
         <form className="form-floating">
-          <table className="table table-bordered table-hover">
+          <table className="table table-bordered table-hover table-responsive">
             <thead className="table-dark">
               <tr>
                 <th scope="col">UNIT-ID</th>
                 <th scope="col">REQUEST-ID</th>
                 <th scope="col">Item</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Queue Request</th>
+                <th scope="col">Available</th>
               </tr>
             </thead>
             <tbody id="sr">
@@ -168,7 +168,7 @@ const OpReq = () => {
                       disabled={disabledButtons.includes(`${req[2]}_${req[3]}2`)}
                       onClick={() => addRequest(req[2],req[3])}
                     >
-                      Queue Request
+                      Select
                     </button>
                   </td>
                 </tr>

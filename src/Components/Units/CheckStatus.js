@@ -30,7 +30,10 @@ const CheckStatus = () => {
 
   return (
     <div>
+      <div style={{textAlign:'center'}}>
       <h3>Order ID: {ordId}</h3>
+      </div>
+      
       <div className="timeline">
         {statusArray.map((status, index) => (
           <div key={index} className="timeline-event">
@@ -38,7 +41,6 @@ const CheckStatus = () => {
             <div className="timeline-event-content">
               <h4>{status}</h4>
               <p>{timestampArray[index]}</p>
-              <p>Content for this status</p>
             </div>
           </div>
         ))}

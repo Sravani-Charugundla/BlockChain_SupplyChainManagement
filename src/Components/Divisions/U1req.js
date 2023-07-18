@@ -217,8 +217,8 @@ const U1req = () => {
                 <th scope="col">REQUEST-ID</th>
                 <th scope="col">Item</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Queue Request</th>
-                <th scope="col">Unavailable</th>
+                <th scope="col">SentToUnits</th>
+                <th scope="col">SentToASC</th>
               </tr>
             </thead>
             <tbody>
@@ -233,17 +233,17 @@ const U1req = () => {
                      id={`${req[0]}_${req[1]}`}
                      disabled={disabledButtons.includes(`${req[0]}_${req[1]}`)}
                       type="button"
-                      className="btn btn-info"
+                      className="btn btn-success"
                       onClick={() => handleQueueRequest(req[0], req[1])}
                     >
-                      Queue Request
+                      QueueRequest
                     </button>
                   </td>
                   <td>
                     <button
                       id = {`${req[0]}_${req[1]}1`}
                       type="button"
-                      className="btn btn-danger"
+                      className="btn btn-info"
                       disabled={disabledButtons.includes(`${req[0]}_${req[1]}1`)}
                       onClick={() => handleUnavailable(req[0], req[1])}
                     >
@@ -260,7 +260,7 @@ const U1req = () => {
               className="btn btn-success btn-lg btn-block"
               onClick={handleForwardRequest}
             >
-              Forward Request to other units
+             BroadcastRequests
             </button>
             <br />
             <br />

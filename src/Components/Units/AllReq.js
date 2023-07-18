@@ -4,9 +4,9 @@ import ABI from '../../contractABI';
 import Address from '../../contractAddress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { Modal, Button, Card } from 'react-bootstrap';
 import './AllReq.css';
 import { useNavigate } from 'react-router-dom';
+import { Modal, Card, Button, Row, Col } from "react-bootstrap";
 
 const AllReq = () => {
   var unit_name = localStorage.getItem('store_uni');
@@ -85,62 +85,90 @@ const AllReq = () => {
   }
 
   return (
-    <div className="container-md">
-      <p id="accountArea">Account is: {account}</p>
-      <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
+    <div className="container">
+      <Row>
+        <Col lg={12} md={10} sm={9}>
+          <p id="accountArea">Account is: {account}</p>
+          <p id="contractArea">Contract Connection Status: {contractConnected ? "Success" : "Not connected"}</p>
+        </Col>
+      </Row>
 
-      <form className="form-floating">
-        <div className="table-responsive">
-          <table className="table table-bordered table-hover">
-            <thead className="table-dark">
-              <tr>
-                <th scope="col">UNIT-ID</th>
-                <th scope="col">REQUEST-ID</th>
-                <th scope="col">Item</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Status</th>
-                <th scope="col">Transaction</th>
-              </tr>
-            </thead>
-            <tbody>
-              {reqData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item[3]}</td>
-                  <td>Request-{item[0]}</td>
-                  <td>{item[1]}</td>
-                  <td>{item[2]}</td>
-                  <td>
-                    <button type="button" className="btn btn-primary" onClick={() => move(`${item[0]}_${item[1]}`)} >CheckStatus</button>
-                  </td>
-                  <td>
-                    <button type="button" className="btn btn-primary" onClick={() => handleClick(item[0])}>
-                      Transaction
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </form>
+      <Row>
+        <Col lg={12} md={10} sm={9}>
+          <form className="form-floating">
+            <div className="table-responsive">
+              <table className="table table-bordered table-hover">
+                <thead className="table-dark">
+                  <tr>
+                    <th scope="col">UNIT-ID</th>
+                    <th scope="col">REQUEST-ID</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Transaction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reqData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item[3]}</td>
+                      <td>Request-{item[0]}</td>
+                      <td>{item[1]}</td>
+                      <td>{item[2]}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => move(`${item[0]}_${item[1]}`)}
+                        >
+                          Check Status
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => handleClick(item[0])}
+                        >
+                          Transaction
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </Col>
+      </Row>
+
       <Modal show={showTransactionModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Transaction Details RequestID:  {transactionDetails?.RequestID}</Modal.Title>
+          <Modal.Title>Transaction Details RequestID: {transactionDetails?.RequestID}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Card>
             <Card.Body>
-              {/* <Card.Title>Transaction Details</Card.Title> */}
-              <div className="card-details text-truncate overflow-auto">
-                <p className="card-text"><strong>Transaction Hash:</strong></p>
+              <div className="card-details">
+                <p className="card-text">
+                  <strong>Transaction Hash:</strong>
+                </p>
                 <p className="card-text">{transactionDetails?.transactionHash}</p>
-                <p className="card-text"><strong>From Address:</strong></p>
+                <p className="card-text">
+                  <strong>From Address:</strong>
+                </p>
                 <p className="card-text">{transactionDetails?.toAddress}</p>
-                <p className="card-text"><strong>To Address:</strong></p>
+                <p className="card-text">
+                  <strong>To Address:</strong>
+                </p>
                 <p className="card-text">{transactionDetails?.fromAddress}</p>
-                <p className="card-text"><strong>TimeStamp:</strong></p>
+                <p className="card-text">
+                  <strong>TimeStamp:</strong>
+                </p>
                 <p className="card-text">{transactionDetails?.timestamp}</p>
-                <p className="card-text"><strong>GasUsed:</strong></p>
+                <p className="card-text">
+                  <strong>GasUsed:</strong>
+                </p>
                 <p className="card-text">{transactionDetails?.gasUsed}</p>
                 {/* Add more transaction details as needed */}
               </div>
@@ -153,8 +181,6 @@ const AllReq = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
     </div>
   );
 };

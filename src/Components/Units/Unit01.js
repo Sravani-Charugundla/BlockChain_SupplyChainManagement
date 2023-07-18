@@ -170,7 +170,7 @@ const Unit01 = () => {
           {data.map((item) => (
             <div key={item.id} className="wrapper">
               <span className="inline">
-                <div className="input-group">
+                <div className="input-group"> 
                   <input
                     list="datalistOptions"
                     id={item.id}

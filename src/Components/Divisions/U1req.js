@@ -19,6 +19,7 @@ const U1req = () => {
   const [requests, setRequests] = useState([]);
   const [unav, setUnav] = useState([]);
   const [areq, setAreq] = useState([]);
+  const [transactionStatus, setTransactionStatus] = useState('');
   const [disabledButtons, setDisabledButtons] = useState(() => {
     const disabledButtonsFromStorage = JSON.parse(localStorage.getItem('disabledButtons')) || [];
     return disabledButtonsFromStorage;
@@ -32,8 +33,24 @@ const U1req = () => {
     
   }, []);
 
+  useEffect(() => {
+    if (transactionStatus === 'Transaction successful') {
+      // Create a new speech synthesis utterance
+      const speechMessage = new SpeechSynthesisUtterance('Transaction successful and Request sent to ASC');
+      // Use the speech synthesis API to speak the message
+      window.speechSynthesis.speak(speechMessage);
+    }
+    else if(transactionStatus == "Transaction successful1")
+    {
+      const speechMessage = new SpeechSynthesisUtterance('Transaction successful and Request sent to Units');
+      // Use the speech synthesis API to speak the message
+      window.speechSynthesis.speak(speechMessage);
+
+    }
+  }, [transactionStatus]);
+
   const connectMetamask = async () => {
-    if (window.ethereum !== undefined) {
+    if (window.ethereum !== undefined) {  
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const selectedAccount = accounts[0];
@@ -164,6 +181,7 @@ const U1req = () => {
           var reqId = reqData[2]+"_"+ reqData[3];
           await updateOrderStatus(reqId,'SentToOtherUnits', currentTimestamp);
         }
+        setTransactionStatus('Transaction successful1');
       }
     }
     catch (error) {
@@ -196,6 +214,7 @@ const U1req = () => {
           await updateOrderStatus(reqId, 'SentToASC', currentTimestamp);
 
         }
+        setTransactionStatus('Transaction successful');
       }
     }
     catch (error) {

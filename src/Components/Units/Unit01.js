@@ -9,6 +9,7 @@ import { saveRequestData } from './api';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
 
+
 const Unit01 = () => {
   const location = useLocation();
   var loc = location.state.id;
@@ -139,10 +140,11 @@ const Unit01 = () => {
             await saveRequestData(requestData);
             console.log('Transaction successful.');
             console.log('Transaction hash:', hash);
-            setTransactionStatus('Transaction successful');
+            
             var reqId = reqData[0] + "_" + reqData[1];
             await updateOrderStatus(reqId, 'SentToDivisions', currentTimestamp);
           }
+          setTransactionStatus('Transaction successful');
         } else {
           console.log('Transaction hash:', hash);
           setTransactionStatus('Transaction failed');
@@ -157,7 +159,14 @@ const Unit01 = () => {
       alert("You can't add items now!");
     }
   };
-
+  useEffect(() => {
+    if (transactionStatus === 'Transaction successful') {
+      // Create a new speech synthesis utterance
+      const speechMessage = new SpeechSynthesisUtterance('Transaction successful and Request Sent to Division');
+      // Use the speech synthesis API to speak the message
+      window.speechSynthesis.speak(speechMessage);
+    }
+  }, [transactionStatus]);
   return (
     <div className="unit-container mt-5">
       <h1 className="mt-10" style={{ textAlign: 'center' }}>SUPPLY REQUEST FORM</h1>

@@ -27,6 +27,15 @@ const OpReq = () => {
     read();
   }, []);
 
+  useEffect(() => {
+    if (transactionStatus === 'Transaction successful') {
+      // Create a new speech synthesis utterance
+      const speechMessage = new SpeechSynthesisUtterance('Request Successfully Accepted');
+      // Use the speech synthesis API to speak the message
+      window.speechSynthesis.speak(speechMessage);
+    }
+  }, [transactionStatus]);
+
   const connectMetamask = async () => {
     if (window.ethereum !== undefined) {
       try {
@@ -70,7 +79,7 @@ const OpReq = () => {
     setRequests(updatedRequests);
     window.web3 = await new Web3(window.ethereum);
     window.contract = await new window.web3.eth.Contract(ABI, Address);
-    const acptd = await window.contract.methods.showtoasc().call();
+    const acptd = await window.contract.methods.d_tu().call();
     console.log(acptd);
     const filteredReq = acptd.filter(item=>item[2]==reqid&&item[3]==ord);
     if(filteredReq.length>0)
@@ -92,10 +101,13 @@ const OpReq = () => {
     console.log(acpt);
   },[acpt]);
 
+  
+
 
   const addreq = async () => {
     try{
-      const receipt =     await window.contract.methods.acptbyUnits(acpt).send({ from: account });
+      const receipt = await window.contract.methods.acptbyUnits(acpt).send({ from: account });
+      console.log(acpt);
       const currentTimestamp = new Date().toLocaleString();
       const transactionReceipt = await window.web3.eth.getTransactionReceipt(receipt.transactionHash);
       if (receipt.status) {
@@ -103,9 +115,9 @@ const OpReq = () => {
           console.log(reqData);
           const requestData = {
             RequestID: reqData[2],
-            UNITID: unit_name,
+            UNITID: reqData[0],
             Item:reqData[3],
-            SentTo:"AcceptedByASC",
+            SentTo:"AcceptedByUnits",
             transactionHash: transactionReceipt.transactionHash,
             toAddress: transactionReceipt.to,
             fromAddress: transactionReceipt.from,
@@ -115,8 +127,9 @@ const OpReq = () => {
           };
           await saveRequestData(requestData);
           var reqId = reqData[2]+"_"+reqData[3];
-          await updateOrderStatus(reqId, 'AcceptedByASC', currentTimestamp);
+          await updateOrderStatus(reqId, 'AcceptedByUnits', currentTimestamp);
         }
+        setTransactionStatus('Transaction successful');
       }
 
     }
@@ -139,7 +152,7 @@ const OpReq = () => {
 
   return (
     <div>
-      <div className="container-md">
+      <div className="container-md text-center">
         <p id="accountArea">Account is: {account}</p>
         <p id="contractArea">Contract Connection Status: {contractConnected ? 'Success' : 'Not connected'}</p>
         <form className="form-floating">
@@ -178,7 +191,11 @@ const OpReq = () => {
         </form>
       </div>
       <br />
+      <div style={{textAlign:'center'}}>
       <button type="button" className="btn btn-success" onClick={addreq}>Accept Request</button>
+
+      </div>
+      
     </div>
   );
 };

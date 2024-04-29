@@ -1,12 +1,12 @@
-#React Supply Chain
+# React Supply Chain
 This repository contains the source code for a React-based supply chain management system.
 
-##Features
-User Authentication: Allows users to sign up, log in, and manage their accounts. [2]
-Product Management: Enables users to add, edit, and delete products in the supply chain.
-Order Tracking: Provides functionality to track orders throughout the supply chain process.
-Inventory Management: Helps users manage inventory levels and stock movements.
-Reporting: Generates reports on various aspects of the supply chain, aiding in decision-making.
+# Features
+## User Authentication: Allows users to sign up, log in, and manage their accounts. [2]
+## Product Management: Enables users to add, edit, and delete products in the supply chain.
+## Order Tracking: Provides functionality to track orders throughout the supply chain process.
+## Inventory Management: Helps users manage inventory levels and stock movements.
+## Reporting: Generates reports on various aspects of the supply chain, aiding in decision-making.
 
 
 # Getting Started with Create React App

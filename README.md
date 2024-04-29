@@ -6,11 +6,11 @@ This repository contains the source code for a React-based supply chain manageme
 Allows users to sign up, log in, and manage their accounts. 
 ### Product Management: 
 Enables users to add, edit, and delete products in the supply chain.
-## Order Tracking: 
+### Order Tracking: 
 Provides functionality to track orders throughout the supply chain process.
-## Inventory Management: 
+### Inventory Management: 
 Helps users manage inventory levels and stock movements.
-## Reporting: 
+### Reporting: 
 Generates reports on various aspects of the supply chain, aiding in decision-making.
 
 

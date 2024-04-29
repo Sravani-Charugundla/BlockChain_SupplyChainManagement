@@ -3,7 +3,7 @@ This repository contains the source code for a React-based supply chain manageme
 
 # Features
 ## User Authentication:
-Allows users to sign up, log in, and manage their accounts. [2]
+Allows users to sign up, log in, and manage their accounts. 
 ## Product Management: 
 Enables users to add, edit, and delete products in the supply chain.
 ## Order Tracking: 

@@ -1,4 +1,4 @@
-# React Supply Chain
+# BlockChain based  Supply Chain Management System for Army Service Corps
 This repository contains the source code for a React-based supply chain management system.
 
 # Features
